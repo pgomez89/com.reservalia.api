@@ -1,12 +1,13 @@
 "use strict";
 
 const mongojs = require("mongojs");
+const config  = require("../config.js");
 
 function Lib(){
 
     var dbs = {
-        specialdom: mongojs("mongo.aws:27017/specialdom",["hotels","config"]),
-        checkout: mongojs("mongo.aws:27017/specialdom",["hotels","config"])
+        specialdom: mongojs(config.dbs["specialdom"].stringconn, config.dbs["specialdom"].collections),
+        checkout: mongojs(config.dbs["checkout"].stringconn, config.dbs["checkout"].collections)
     };
 
     return {
