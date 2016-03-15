@@ -12,8 +12,8 @@ function Sales(server){
             query: {
                 limit: Joi.number().min(1).max(100).integer().positive().description('Page Limit between 1 and 100'),
                 offset:Joi.number().min(0).max(100).integer().description('Pagination offset. '),
-                sort: Joi.string().description("Sort Options. +ASC -DESC. Example: +date -date "),
-                filter: Joi.string().description("Filter Options: ")
+                sort: Joi.string().description("Sort Options. +ASC -DESC +date -date, +total-price -total-price, +nightly-price -nightly-price"),
+                filter: Joi.string().description("Filter Options: booking_id, date, checkIn, checkOut, hotelName, price_detail. If you don't put anything, by default API retrieves you the reduce version of sale")
             }
         }),
         handler: function(req, reply){
@@ -22,7 +22,7 @@ function Sales(server){
                 offset: typeof req.query.offset != "undefined" ? req.query.offset : 0
             };
 
-            sales.getSales(params,(err,sales) =>{
+            sales.getSales(params,(err,sales) => {
                 if(err)
                     return reply(err);
                 return reply(sales);
