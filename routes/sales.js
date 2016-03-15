@@ -10,8 +10,8 @@ function Sales(server){
         path:"/api/v1/sales",
         config: Sales.prototype.buildConfig({
             query: {
-                limit: Joi.number().description('Page Limit between 0 and 100'),
-                offset:Joi.number().description('Pagination offset.')
+                limit: Joi.number().min(1).max(100).integer().positive().description('Page Limit between 1 and 100'),
+                offset:Joi.number().min(0).max(100).integer().positive().description('Pagination offset. ')
             }
         }),
         handler: function(req, reply){
@@ -36,8 +36,8 @@ function Sales(server){
                 hotelId: Joi.number().required().description("Hotel ID")
             },
             query: {
-                limit: Joi.number().description('Page Limit between 0 and 100'),
-                offset:Joi.number().description('Pagination offset.')
+                limit: Joi.number().min(1).max(100).integer().positive().description('Page Limit between 1 and 100'),
+                offset:Joi.number().min(0).max(100).integer().positive().description('Pagination offset. ')
             }
         }),
         handler: function(req, reply){
