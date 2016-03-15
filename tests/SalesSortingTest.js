@@ -10,3 +10,19 @@ describe('SalesSortingTest', function() {
         assert.deepEqual({date:1,total_price:-1}, sort(sortingParams));
     });
 });
+
+describe('SalesSortingTest', function() {
+    it('Deberia retornar un objeto con un solo filtro =  1 ', function () {
+
+        var sortingParams = "+date";
+        assert.deepEqual({date:1}, sort(sortingParams));
+    });
+});
+
+describe('SalesSortingTest', function() {
+    it('Deberia retornar un objeto con un solo filtro =  -1 ', function () {
+
+        var sortingParams = "-total_price";
+        assert.deepEqual({total_price:-1}, sort(sortingParams));
+    });
+});
