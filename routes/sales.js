@@ -11,7 +11,9 @@ function Sales(server){
         config: Sales.prototype.buildConfig({
             query: {
                 limit: Joi.number().min(1).max(100).integer().positive().description('Page Limit between 1 and 100'),
-                offset:Joi.number().min(0).max(100).integer().positive().description('Pagination offset. ')
+                offset:Joi.number().min(0).max(100).integer().description('Pagination offset. '),
+                sort: Joi.string().description("Sort Options. +ASC -DESC. Example: +date -date "),
+                filter: Joi.string().description("Filter Options: ")
             }
         }),
         handler: function(req, reply){
@@ -37,7 +39,7 @@ function Sales(server){
             },
             query: {
                 limit: Joi.number().min(1).max(100).integer().positive().description('Page Limit between 1 and 100'),
-                offset:Joi.number().min(0).max(100).integer().positive().description('Pagination offset. ')
+                offset:Joi.number().min(0).max(100).integer().description('Pagination offset. ')
             }
         }),
         handler: function(req, reply){
