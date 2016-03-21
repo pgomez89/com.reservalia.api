@@ -22,7 +22,9 @@ function SalesCtrl(){
             sales.getSales(params,filters,sort,cb);
         },
         getSalesByHotelId(params,cb){
-            sales.getSalesByHotelId(params,cb);
+            var filters = _this.getFilter(map,params.filter);
+            var sort = _this.getSort(map,params.sort);
+            sales.getSalesByHotelId(params,filters,sort,cb);
         }
     }
 }
