@@ -25,9 +25,6 @@ server.connection({
     port: 8000
 });
 
-//Database Driver
-const mongojs = require("mongojs");
-
 require("./routes/routes.js")(server);
 
 const options = {

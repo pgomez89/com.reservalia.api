@@ -4,6 +4,8 @@ const Joi = require('joi');
 const sales = require("../controllers/salesController.js");
 
 function Sales(server){
+    var _this = this;
+
 
     server.route({
         method:"GET",
@@ -17,10 +19,13 @@ function Sales(server){
             }
         }),
         handler: function(req, reply){
-            var params = {
+            let params = {
                 limit: typeof req.query.limit != "undefined" ? req.query.limit : 0,
-                offset: typeof req.query.offset != "undefined" ? req.query.offset : 0
+                offset: typeof req.query.offset != "undefined" ? req.query.offset : 0,
+                filter: req.query.filter,
+                sort: req.query.sort
             };
+            console.log(params);
 
             sales.getSales(params,(err,sales) => {
                 if(err)
@@ -43,11 +48,11 @@ function Sales(server){
             }
         }),
         handler: function(req, reply){
-            var params = {
+            let params = {
                 hotelId: req.params.hotelId,
                 limit: typeof req.query.limit != "undefined" ? req.query.limit : 0,
                 offset: typeof req.query.offset != "undefined" ? req.query.offset : 0
-            }
+            };
             sales.getSalesByHotelId(params,(err,sales) => {
                 if(err)
                     return reply(err);

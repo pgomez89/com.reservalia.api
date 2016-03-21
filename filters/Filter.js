@@ -6,15 +6,14 @@
  */
 
 
-function Filter(filters){
-
-    let parts = filters.split(",");
-
+function Filter(map,filters){
     let dbFilter = {};
+    if(filters){
+        let parts = filters.split(",");
 
-    for(var i = 0; i < parts.length; i++){
-        let filter = parts[i];
-        dbFilter[filter] =  1;
+        parts.forEach(val => {
+            return dbFilter[ map[val] ] = 1;
+        });
     }
 
     return dbFilter;

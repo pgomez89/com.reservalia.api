@@ -4,6 +4,9 @@ function Endpoint(){
 
 
     return {
+        map(map){
+            this.map = map;
+        },
         buildConfig(validate){
             let config = {
                 plugins: {
@@ -12,7 +15,7 @@ function Endpoint(){
                         payloadType: 'json'
                     }
                 },
-                validate:validate || {},
+                validate:validate,
                 tags: ['api']
             };
 

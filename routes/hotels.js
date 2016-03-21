@@ -3,7 +3,6 @@
 const Joi = require('joi');
 const hotels = require("../controllers/hotelsController.js");
 
-
 function Hotels(server){
     //Tiene que coincidir el path param con el params del objeto validate.
     server.route({
@@ -14,8 +13,6 @@ function Hotels(server){
                 hotelId: Joi.number().required().description('Hotel ID from PAM')
             },
             query:{
-                limit: Joi.number().min(1).max(100).integer().positive().description('Page Limit between 1 and 100'),
-                offset:Joi.number().min(0).max(100).integer().description('Pagination offset.'),
                 reduce: Joi.boolean().description("Reduce version of Hotel")
             }
         }),
@@ -27,6 +24,8 @@ function Hotels(server){
             });
         }
     });
+
+    //more endpoints here
 }
 
 Hotels.prototype = require("../prototypes/Endpoint.js");
