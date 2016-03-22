@@ -10,20 +10,21 @@ function SalesCtrl(){
         checkIn: "checkIn",
         checkOut: "checkOut",
         hotel: "hotelName",
-        price: "price_detail"
+        price: "price_detail.total",
+        nightly_price:"price_detail.nightly_price"
     };
 
     var _this = this;
 
     return {
         getSales(params,cb){
-            var filters = _this.getFilter(map,params.filter);
-            var sort = _this.getSort(map,params.sort);
+            let filters = _this.getFilter(map,params.filter);
+            let sort = _this.getSort(map,params.sort);
             sales.getSales(params,filters,sort,cb);
         },
         getSalesByHotelId(params,cb){
-            var filters = _this.getFilter(map,params.filter);
-            var sort = _this.getSort(map,params.sort);
+            let filters = _this.getFilter(map,params.filter);
+            let sort = _this.getSort(map,params.sort);
             sales.getSalesByHotelId(params,filters,sort,cb);
         }
     }

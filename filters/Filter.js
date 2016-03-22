@@ -12,6 +12,7 @@ function Filter(map,filters){
         let parts = filters.split(",");
 
         parts.forEach(val => {
+            val = val.trim();
             return dbFilter[ map[val] ] = 1;
         });
     }

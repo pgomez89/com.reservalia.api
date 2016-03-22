@@ -2,16 +2,19 @@
 
 
 function Sorting(map,params){
-    let parts = params.split(",");
-
     let dbSorting = {};
+    if(params){
+        let parts = params.split(",");
 
-    parts.forEach( val => {
-        if(val[0] == "+")
-            dbSorting[ map [ val.slice(1,val.length) ] ] = 1;
-        if(val[0] == "-")
-            dbSorting[ map [ val.slice(1,val.length) ] ] = -1;
-    });
+        parts.forEach( val => {
+            val = val.trim();
+            if(val[0] == "+")
+                dbSorting[ map [ val.slice(1,val.length) ] ] = 1;
+            if(val[0] == "-")
+                dbSorting[ map [ val.slice(1,val.length) ] ] = -1;
+        });
+    }
+
     return dbSorting;
 }
 

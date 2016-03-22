@@ -5,14 +5,14 @@ const sales = require("../controllers/salesController.js");
 
 function Sales(server){
     var _this = this;
-    
+
     server.route({
         method:"GET",
         path:"/api/v1/sales",
         config: Sales.prototype.buildConfig({
             query: {
-                limit: Joi.number().min(1).max(100).integer().positive().description('Page Limit between 1 and 100'),
-                offset:Joi.number().min(0).max(100).integer().description('Pagination offset. '),
+                limit: Joi.number().required().min(1).max(100).integer().positive().description('Page Limit between 1 and 100'),
+                offset:Joi.number().required().min(0).max(100).integer().description('Pagination offset. '),
                 sort: Joi.string().description("Sort Options. +ASC -DESC +date -date, +total-price -total-price, +nightly-price -nightly-price"),
                 filter: Joi.string().description("Filter Options: booking_id, date, checkIn, checkOut, hotelName, price_detail. If you don't put anything, by default API retrieves you the reduce version of sale")
             }
@@ -24,7 +24,6 @@ function Sales(server){
                 filter: req.query.filter,
                 sort: req.query.sort
             };
-            console.log(params);
 
             sales.getSales(params,(err,sales) => {
                 if(err)
