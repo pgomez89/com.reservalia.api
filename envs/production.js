@@ -14,7 +14,7 @@ const config = {
         }
     },
     api:{
-        host: "api.despegar.com"
+        host: "api.reservalia.com"
     }
 };
 

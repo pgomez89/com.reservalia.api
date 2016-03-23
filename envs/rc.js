@@ -1,7 +1,7 @@
 "use strict";
 
 const host = process.env.DB_HOST || "localhost";
-
+const os = require("os");
 const config = {
     dbs:{
         checkout: {
@@ -14,7 +14,7 @@ const config = {
         }
     },
     api:{
-        host: "api.despegar.it"
+        host: os.hostname()+":9290"
     }
 };
 

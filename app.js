@@ -17,12 +17,18 @@ const Inert = require('inert');
 const Vision = require('vision');
 const HapiSwagger = require('hapi-swagger');
 
+const config = require("./config.js");
 
 const server = new Hapi.Server();
 
 server.connection({
-    host: 'localhost',
-    port: 8000
+    host:"0.0.0.0",
+    port: 9290,
+    routes:{
+        cors: {
+            origin: ['*']
+        }
+    }
 });
 
 require("./routes/routes.js")(server);
@@ -31,7 +37,8 @@ const options = {
     info: {
         'title': 'Reservalia API Documentation',
         'version': "v1.0.0"
-    }
+    },
+    host: config.api.host
 };
 
 server.register([

@@ -1,7 +1,10 @@
 "use strict";
 
-var env = process.env.NODE_ENV || "rc";
+var env = process.env.NODE_ENV || "dev";
 switch (env.toLowerCase()){
+    case "dev":
+        module.exports = require("./envs/dev.js");
+        break;
     case "rc":
         module.exports = require("./envs/rc.js");
         break;
@@ -12,6 +15,6 @@ switch (env.toLowerCase()){
         module.exports = require("./envs/production.js");
         break;
     default:
-        module.exports = require("./envs/rc.js");
+        module.exports = require("./envs/dev.js");
         break;
 }
