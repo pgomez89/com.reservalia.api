@@ -14,7 +14,7 @@ const config = {
         }
     },
     api:{
-        host: os.hostname()+":9290"
+        host: os.hostname()+".servers.despegar.it:9290"
     }
 };
 
