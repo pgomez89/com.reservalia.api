@@ -8,6 +8,9 @@ switch (env.toLowerCase()){
     case "rc":
         module.exports = require("./envs/rc.js");
         break;
+    case "cloudia":
+        module.exports = require("./envs/cloudia.js");
+        break;
     case "sandbox":
         module.exports = require("./envs/sandbox.js");
         break;

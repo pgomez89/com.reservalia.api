@@ -68,7 +68,7 @@ var HotelCtrl = function(){
         getHotels(params,cb){
 
             if(typeof params.filter != "undefined"){
-                params.filter += ",id,name";//Require Fields
+                params.filter += ",id,name";//Require Fields -> cambiar no me gusta
             }
 
             let filters = _this.getFilter(mapFilter,params.filter);
@@ -103,7 +103,7 @@ var HotelCtrl = function(){
         getHotelById(params,cb){
 
             if(typeof params.filter != "undefined"){
-                params.filter += ",id,name";//Require Fields
+                params.filter += ",id,name";//Require Fields -> cambiar no me gusta
             }
 
             let filters = _this.getFilter(mapFilter,params.filter);
