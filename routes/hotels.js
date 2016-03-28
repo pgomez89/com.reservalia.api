@@ -7,7 +7,7 @@ function Hotels(server){
 
     server.route({
         method: 'GET',
-        path: '/api/v1/hotels',
+        path: '/v1/hotels',
         config: Hotels.prototype.buildConfig({
             query:{
                 limit: Joi.number().required().min(1).max(100).integer().positive().description('Page Limit between 1 and 100'),
@@ -35,7 +35,7 @@ function Hotels(server){
     //Tiene que coincidir el path param con el params del objeto validate.
     server.route({
         method: 'GET',
-        path: '/api/v1/hotels/{hotelId}',
+        path: '/v1/hotels/{hotelId}',
         config: Hotels.prototype.buildConfig({
             params: {
                 hotelId: Joi.number().required().description('Hotel ID from PAM')

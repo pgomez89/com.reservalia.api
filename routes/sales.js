@@ -8,7 +8,7 @@ function Sales(server){
 
     server.route({
         method:"GET",
-        path:"/api/v1/sales",
+        path:"/v1/sales",
         config: Sales.prototype.buildConfig({
             query: {
                 limit: Joi.number().required().min(1).max(100).integer().positive().description('Page Limit between 1 and 100'),
@@ -35,7 +35,7 @@ function Sales(server){
 
     server.route({
         method:"GET",
-        path:"/api/v1/sales/{hotelId}",
+        path:"/v1/sales/{hotelId}",
         config: Sales.prototype.buildConfig({
             params:{
                 hotelId: Joi.number().required().description("Hotel ID")

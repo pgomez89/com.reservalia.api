@@ -16,6 +16,7 @@ const Good = require('good');
 const Inert = require('inert');
 const Vision = require('vision');
 const HapiSwagger = require('hapi-swagger');
+const HapiApiVersion = require("hapi-api-version");
 
 const config = require("./config.js");
 
@@ -47,6 +48,14 @@ server.register([
     {
         'register': HapiSwagger,
         'options': options
+    },
+    {
+        'register': HapiApiVersion,
+        'options':{
+            defaultVersion:1,
+            validVersions:[1,2],
+            vendorName:'reservalia'
+        }
     },
     {
         register: Good,
