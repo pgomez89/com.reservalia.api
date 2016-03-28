@@ -12,7 +12,6 @@ function Controller(){
         getFilter(map,filters){
             return filter(map,filters);
         }
-
     }
 }
 

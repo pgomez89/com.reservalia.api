@@ -3,21 +3,76 @@ const hotels = require("../lib/hotelsDB.js");
 
 var HotelCtrl = function(){
 
-    var map = {
+    var _this = this;
+
+    var mapFilter = {
         id:"_id",
-        name:"name",
+        name:"general.hotel_name",
         template:"template",
         logo:"template.pictures.logoUrl",
-        domains:"general.domains"
+        domains:"general.domains",
+        emails:"general.emails",
+        phones:"general.phones"
     };
 
-    var _this = this;
+    var mapSorting = {
+        id:"_id",
+        name:"general.hotel_name"
+    };
+
+
+    function buildHotel(hotelRaw){
+        let hotel = {
+            id: hotelRaw._id,
+            name:hotelRaw.general.hotel_name || "",
+            demoUrl: "http://"+hotelRaw._id+".reservalia.com"
+        };
+
+        if(hotelRaw.general && hotelRaw.general.domains && hotelRaw.general.domains.length > 0){
+            let domain =  hotelRaw.general.domains[0].domain;
+
+            if(domain){
+                let url = "http://www."+domain;
+                hotel.url = url.trim();
+
+                if(hotelRaw.template && hotelRaw.template.pictures && hotelRaw.template.pictures.logoUrl){
+                    hotel.logo = url.trim()+"/"+hotelRaw.template.pictures.logoUrl.trim();
+                }
+            }
+            //Puede ser que sea online
+            hotel.domains = hotelRaw.general.domains
+        }
+
+        if(hotelRaw.template){
+            hotel.template = {
+                id: hotelRaw.template.id,
+                name: hotelRaw.template.path,
+                css: hotelRaw.template.css
+            };
+
+        }
+
+        if(typeof hotelRaw.general.emails != "undefined"){
+            hotel.emails = hotelRaw.general.emails;
+        }
+
+        if(typeof hotelRaw.general.phones != "undefined"){
+            hotel.phones = hotelRaw.general.phones;
+        }
+        return hotel;
+    }
+
 
     return {
 
         getHotels(params,cb){
-            let filters = _this.getFilter(map,params.filter);
-            let sort = _this.getSort(map,params.sort);
+
+            if(typeof params.filter != "undefined"){
+                params.filter += ",id,name";//Require Fields
+            }
+
+            let filters = _this.getFilter(mapFilter,params.filter);
+            let sort = _this.getSort(mapSorting,params.sort);
 
             hotels.getHotels(params,filters,sort,(err,hotelsRaw) => {
                 if(err){
@@ -27,45 +82,10 @@ var HotelCtrl = function(){
                 }else{
                     //try{
                         if(hotelsRaw && hotelsRaw.length > 0){
-
                             hotelsRaw = hotelsRaw.map( hotelRaw => {
-
-                                let hotel = {
-                                    id: hotelRaw._id,
-                                    name:hotelRaw._id || "",
-                                    demoUrl: "http://"+hotelRaw._id+".reservalia.com"
-                                };
-
-                                if(hotelRaw.general && hotelRaw.general.domains && hotelRaw.general.domains.length > 0){
-                                    let domain =  hotelRaw.general.domains[0].domain;
-
-                                    if(domain){
-                                        let url = "http://www."+domain;
-                                        hotel.url = url.trim();
-
-                                        if(hotelRaw.template && hotelRaw.template.pictures && hotelRaw.template.pictures.logoUrl){
-                                            hotel.logo = url.trim()+"/"+hotelRaw.template.pictures.logoUrl.trim();
-                                        }
-                                    }
-                                    //Puede ser que sea online
-                                    hotel.domains = hotelRaw.general.domains
-                                }
-
-                                if(hotelRaw.template){
-                                    hotel.template = {
-                                        id: hotelRaw.template.id,
-                                        name: hotelRaw.template.path,
-                                        css: hotelRaw.template.css
-                                    };
-
-                                }
-
-                                return hotel;
-
+                                return buildHotel(hotelRaw);
                             });
-
                             return cb(null,hotelsRaw);
-
                         }else{
                             return cb(null,{});
                         }
@@ -81,32 +101,19 @@ var HotelCtrl = function(){
             });
         },
         getHotelById(params,cb){
-            let filters = _this.getFilter(map,params.filter);
-            let sort = _this.getSort(map,params.sort);
+
+            if(typeof params.filter != "undefined"){
+                params.filter += ",id,name";//Require Fields
+            }
+
+            let filters = _this.getFilter(mapFilter,params.filter);
+            let sort = _this.getSort(mapSorting,params.sort);
 
             hotels.getHotelById(params,filters,sort,(err, hotelRaw) => {
                 if(err)
                     return cb(err,null);
-
                 try {
-                    let url = "http://www."+hotelRaw.general.domains[0].domain;
-
-                    let hotel = {
-                        id: hotelRaw._id,
-                        name:hotelRaw._id || "",
-                        url:url,
-                        demoUrl: "http://"+hotelRaw._id+".reservalia.com",
-                        template: {
-                            id: hotelRaw.template.id,
-                            name: hotelRaw.template.path,
-                            css: hotelRaw.template.css
-                        },
-                        domains: hotelRaw.general.domains,
-                        logo: url.trim()+"/"+hotelRaw.template.pictures.logoUrl.trim()
-                    };
-
-                    return cb(null,hotel);
-
+                    return cb(null,buildHotel(hotelRaw));
                 }catch(err){
                     return cb(err,null);
                 }
