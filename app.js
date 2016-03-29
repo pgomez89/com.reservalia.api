@@ -9,6 +9,7 @@
  **/
 
 
+require("newrelic");
 const Hapi = require("hapi");
 
 //Hapi Plugins
