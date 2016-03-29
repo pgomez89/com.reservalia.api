@@ -39,6 +39,7 @@ const options = {
         'title': 'Reservalia API Documentation',
         'version': "v1.0.0"
     },
+    documentationPath:"/",
     host: config.api.host
 };
 
