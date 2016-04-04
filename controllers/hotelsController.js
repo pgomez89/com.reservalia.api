@@ -38,19 +38,20 @@ var HotelCtrl = function(){
                 if(hotelRaw.template && hotelRaw.template.pictures && hotelRaw.template.pictures.logoUrl){
                     hotel.logo = url.trim()+"/"+hotelRaw.template.pictures.logoUrl.trim();
                 }
+
+                if(hotelRaw.template){
+                    hotel.template = {
+                        id: hotelRaw.template.id,
+                        name: hotelRaw.template.path,
+                        css: hotel.url+hotelRaw.template.css
+                    };
+                }
             }
             //Puede ser que sea online
             hotel.domains = hotelRaw.general.domains
         }
 
-        if(hotelRaw.template){
-            hotel.template = {
-                id: hotelRaw.template.id,
-                name: hotelRaw.template.path,
-                css: hotelRaw.template.css
-            };
 
-        }
 
         if(typeof hotelRaw.general.emails != "undefined"){
             hotel.emails = hotelRaw.general.emails;
