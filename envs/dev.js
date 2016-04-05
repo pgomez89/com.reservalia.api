@@ -1,5 +1,11 @@
 "use strict";
 
+/**
+ * DEV ENV
+ *
+ * NewRelic configuration, server host, DB's, api host.
+ */
+
 const newrelic = {
     /**
      * Array of application names.
@@ -16,13 +22,16 @@ const newrelic = {
          * production applications.
          */
         level: 'trace'
+    },
+    transaction_tracer:{
+        enable:true
     }
 };
 
 
 
 const host = process.env.DB_HOST || "localhost";
-const os = require("os");
+
 const config = {
     dbs:{
         checkout: {

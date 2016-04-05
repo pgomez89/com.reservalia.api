@@ -1,5 +1,12 @@
 "use strict";
 
+
+/**
+ * Cloudia ENV
+ *
+ * NewRelic configuration, server host, DB's, api host.
+ */
+
 const newrelic = {
     /**
      * Array of application names.

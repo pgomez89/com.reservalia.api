@@ -1,5 +1,16 @@
 "use strict";
 
+/**
+ * Este script corre al inicio del server. Según el ambiente en donde se configura, posee diferentes
+ * archivos config que se encuentran en /envs.
+ *
+ * Para variar de ambiente, utilizar la variable de entorno NODE_ENV
+ *
+ * Default dev.
+ *
+ * @type {string|string|string}
+ */
+
 var env = process.env.NODE_ENV || "dev";
 switch (env.toLowerCase()){
     case "dev":

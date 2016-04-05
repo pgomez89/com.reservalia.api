@@ -1,5 +1,11 @@
 "use strict";
 
+/**
+ * SANDBOX ENV
+ *
+ * NewRelic configuration, server host, DB's, api host.
+ */
+
 const newrelic = {
     /**
      * Array of application names.
@@ -34,10 +40,7 @@ const config = {
     api:{
         host: "api.reservalia.it"
     },
-    newrelic:{
-        license_key:"1a1160c5e624c2dcaf6c6a91f4f5dae30d22abee",
-        app_name:"Reservalia API SANDBOX"
-    }
+    newrelic:newrelic
 };
 
 module.exports = config;
