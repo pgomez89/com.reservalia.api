@@ -122,7 +122,44 @@ var HotelCtrl = function(){
                 return cb({err:"No hotel"},null);
 
             });
+        },
+
+        getHotelsOnline(params,cb){
+            if(typeof params.filter != "undefined"){
+                params.filter += ",id,name";//Require Fields -> cambiar no me gusta
+            }
+
+            let filters = _this.getFilter(mapFilter,params.filter);
+            let sort = _this.getSort(mapSorting,params.sort);
+
+            hotels.getHotelsOnline(params,filters,sort,(err,hotelsRaw) => {
+                if(err){
+                    console.log("hotelsController",err);
+                    //No entregar data de errores de db al cliente. Solo loguearlas.
+                    return cb({err:"Cannot connect to DB"},null);
+                }else{
+                    //try{
+                    if(hotelsRaw && hotelsRaw.length > 0){
+                        hotelsRaw = hotelsRaw.map( hotelRaw => {
+                            return buildHotel(hotelRaw);
+                        });
+                        return cb(null,hotelsRaw);
+                    }else{
+                        return cb(null,{});
+                    }
+                    //}catch(err){
+                    //    console.log(err);
+                    //    return cb({err:"Error to processing request"},null);
+                    //}
+                }
+
+                //Warning, acá no se llama a ningún callback porque están todas las alternativas cubiertas, si agregan otra
+                //tenganlo en cuenta.
+
+            });
         }
+
+
     }
 };
 
