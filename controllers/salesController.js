@@ -2,8 +2,21 @@
 
 const sales = require("../lib/salesDB.js");
 
+/**
+ *
+ * SalesCtrl es un controller que maneja la lógica de los objetos de hotels.
+ *
+ * Cada controller posee libs asociadas que permiten acceder a la base de datos u otros servicios.
+ *
+ * SalesCtrl pertenece a la capa controllers, cada vez que creo un objeto en la capa controllers, tengo que setear quien es
+ * su prototipo. Utilizando utils.inherits(MiClase,Prototype). Luego exportar el objeto, en este caso SalesCtrl
+ *
+ * @returns {{getSales: (function(*=, *=)), getSalesByHotelId: (function(*=, *=))}}
+ * @constructor
+ */
 function SalesCtrl(){
 
+    //Mapa donde la key = API path/query param y val = mongodb property
     var map = {
         booking_id:"booking_id",
         date: "lastModified",
@@ -17,11 +30,21 @@ function SalesCtrl(){
     var _this = this;
 
     return {
+        /**
+         * Retorna todas las ventas de forma paginada teniendo en cuenta los filtros, ordenamientos y parámetros.
+         * @param params
+         * @param cb
+         */
         getSales(params,cb){
             let filters = _this.getFilter(map,params.filter);
             let sort = _this.getSort(map,params.sort);
             sales.getSales(params,filters,sort,cb);
         },
+        /**
+         * Retorna todas las ventas de un hotel en particular teniendo en cuenta los filtros, ordenamientos y parámetros.
+         * @param params
+         * @param cb
+         */
         getSalesByHotelId(params,cb){
             let filters = _this.getFilter(map,params.filter);
             let sort = _this.getSort(map,params.sort);

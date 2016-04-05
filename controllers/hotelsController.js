@@ -1,10 +1,25 @@
 "use strict";
 const hotels = require("../lib/hotelsDB.js");
 
+/**
+ * HotelCtrl es un controller que maneja la lógica de los objetos de hotels.
+ *
+ * Cada controller posee libs asociadas que permiten acceder a la base de datos u otros servicios.
+ *
+ * HotelCtrl pertenece a la capa controllers, cada vez que creo un objeto en la capa controllers, tengo que setear quien es
+ * su prototipo. Utilizando utils.inherits(MiClase,Prototype). Luego exportar el objeto, en este caso HotelCtrl
+ *
+ * @returns {{getHotels: (function(*=, *)), getHotelById: (function(*=, *)), getHotelsOnline: (function(*=, *))}}
+ * @constructor
+ */
 var HotelCtrl = function(){
 
     var _this = this;
 
+    /**
+     *
+     * @type {{id: string, name: string, template: string, logo: string, domains: string, emails: string, phones: string}}
+     */
     var mapFilter = {
         id:"_id",
         name:"general.hotel_name",
@@ -15,13 +30,25 @@ var HotelCtrl = function(){
         phones:"general.phones"
     };
 
+    /**
+     *
+     * @type {{id: string, name: string}}
+     */
     var mapSorting = {
         id:"_id",
         name:"general.hotel_name"
     };
 
 
+    /**
+     *
+     * Transforma un hotel de la base de datos al hotel que viaja en el response.
+     *
+     * @param hotelRaw - Objeto tal cual viene de la base de datos.
+     * @returns {{id: *, name: (*|string), demoUrl: string}}
+     */
     function buildHotel(hotelRaw){
+        //Siempre va a response un hotel con este modelo base.
         let hotel = {
             id: hotelRaw._id,
             name:hotelRaw.general.hotel_name || "",
@@ -66,6 +93,14 @@ var HotelCtrl = function(){
 
     return {
 
+        /**
+         *
+         * Retorna todos los hotels teniendo en cuenta los filtros, ordenamiento y parámetros.
+         *
+         *
+         * @param params
+         * @param cb
+         */
         getHotels(params,cb){
 
             if(typeof params.filter != "undefined"){
@@ -75,6 +110,7 @@ var HotelCtrl = function(){
             let filters = _this.getFilter(mapFilter,params.filter);
             let sort = _this.getSort(mapSorting,params.sort);
 
+            //TODO Cambiar a promises.
             hotels.getHotels(params,filters,sort,(err,hotelsRaw) => {
                 if(err){
                     console.log("hotelsController",err);
@@ -83,6 +119,7 @@ var HotelCtrl = function(){
                 }else{
                     //try{
                         if(hotelsRaw && hotelsRaw.length > 0){
+                            //Transformo cada hotelRaw en un hotel para responder el request.
                             hotelsRaw = hotelsRaw.map( hotelRaw => {
                                 return buildHotel(hotelRaw);
                             });
@@ -101,6 +138,13 @@ var HotelCtrl = function(){
 
             });
         },
+        /**
+         *
+         * Retorna un hotel por ID teniendo en cuenta los filtros, ordenamiento y parámetros.
+         *
+         * @param params
+         * @param cb
+         */
         getHotelById(params,cb){
 
             if(typeof params.filter != "undefined"){
@@ -124,6 +168,13 @@ var HotelCtrl = function(){
             });
         },
 
+        /**
+         *
+         * Retorna solo los hoteles online.(online: true) teniendo en cuenta los filtros, ordenamientos y paramétros.
+         *
+         * @param params
+         * @param cb
+         */
         getHotelsOnline(params,cb){
             if(typeof params.filter != "undefined"){
                 params.filter += ",id,name";//Require Fields -> cambiar no me gusta
@@ -158,8 +209,6 @@ var HotelCtrl = function(){
 
             });
         }
-
-
     }
 };
 
