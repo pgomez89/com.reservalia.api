@@ -73,13 +73,16 @@ function Hotels(server){
      * @response err
      * @response hotel
      */
-    //Tiene que coincidir el path param con el params del objeto validate.
+     
     server.route({
         method: 'GET',
         path: '/v1/hotels/{hotelId}',
         config: Hotels.prototype.buildConfig({
             params: {
+
+                // Tiene que coincidir el Path Param con el params del objeto Validate.
                 hotelId: Joi.number().required().description('Hotel ID from PAM')
+
             },
             query:{
                 filter: Joi.string().description("Filter Options: TODO put fields here. If you don't put anything, by default API retrieves you the reduce version of sale"),
