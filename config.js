@@ -10,8 +10,9 @@
  *
  * @type {string|string|string}
  */
+const args = require( "argsparser" ).parse();
 
-var env = process.env.NODE_ENV || "dev";
+var env = args.env || process.env.NODE_ENV || "dev";
 switch (env.toLowerCase()){
     case "dev":
         module.exports = require("./envs/dev.js");

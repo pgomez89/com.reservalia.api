@@ -41,6 +41,7 @@ const config = {
     api:{
         host: "api.reservalia.com"
     },
+    port:9290,
     newrelic:newrelic
 };
 

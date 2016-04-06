@@ -42,6 +42,7 @@ const config = {
     api:{
         host: os.hostname()+":9290"
     },
+    port:9290,
     newrelic: newrelic
 };
 

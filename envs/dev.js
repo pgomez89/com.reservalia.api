@@ -44,7 +44,7 @@ const config = {
         }
     },
     api:{
-        host: "localhost:9290"
+        host: "localhost"
     },
     newrelic:newrelic
 };

@@ -23,9 +23,14 @@ const config = require("./config.js");
 
 const server = new Hapi.Server();
 
+const args = require("argsparser").parse();
+
+const port = args["-port"] || config.port || 9290;
+
+console.log("runing on",args);
 server.connection({
     host:"0.0.0.0",
-    port: 9290,
+    port,
     routes:{
         cors: {
             origin: ['*']
@@ -42,7 +47,7 @@ const options = {
     },
     swaggerUIPath:"/docs/",
     documentationPath:"/",
-    host: config.api.host
+    host: config.api.host+":"+port
 };
 
 server.register([
