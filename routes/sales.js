@@ -53,8 +53,8 @@ function Sales(server){
 
             sales.getSales(params,(err,sales) => {
                 if(err)
-                    return reply(err);
-                return reply(sales);
+                    return reply(err).header('X-Service','/v1/sales');
+                return reply(sales).header('X-Service','/v1/sales');
             });
         }
     });
@@ -99,8 +99,8 @@ function Sales(server){
             };
             sales.getSalesByHotelId(params,(err,sales) => {
                 if(err)
-                    return reply(err);
-                return reply(sales);
+                    return reply(err).header('X-Service','/v1/sales/{hotelId}');
+                return reply(sales).header('X-Service','/v1/sales/{hotelId}');
             });
         }
     });

@@ -53,8 +53,8 @@ function Hotels(server){
             };
             hotels.getHotels(params,(err,hotel) => {
                 if(err)
-                    return reply(err);
-                return reply(hotel);
+                    return reply(err).header('X-Service','/v1/hotels');
+                return reply(hotel).header('X-Service','/v1/hotels');
             });
         }
     });
@@ -97,8 +97,8 @@ function Hotels(server){
             };
             hotels.getHotelById(params,(err,hotel) => {
                 if(err)
-                    return reply(err);
-                return reply(hotel);
+                    return reply(err).header('X-Service','/v1/{hotelId}');
+                return reply(hotel).header('X-Service','/v1/{hotelId}');
             });
         }
     });
@@ -139,8 +139,8 @@ function Hotels(server){
             };
             hotels.getHotelsOnline(params,(err,hotel) => {
                 if(err)
-                    return reply(err);
-                return reply(hotel);
+                    return reply(err).header('X-Service','/v1/hotels/online');
+                return reply(hotel).header('X-Service','/v1/hotels/online');
             });
         }
     });
