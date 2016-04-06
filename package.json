@@ -32,5 +32,9 @@
     "mongojs": "^2.3.0",
     "newrelic": "^1.26.0",
     "vision": "^4.0.1"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-jsdoc": "^0.1.5"
   }
 }

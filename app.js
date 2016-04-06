@@ -40,6 +40,7 @@ const options = {
         'title': 'Reservalia API Documentation',
         'version': "v1.0.0"
     },
+    swaggerUIPath:"/docs/",
     documentationPath:"/",
     host: config.api.host
 };
