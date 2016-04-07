@@ -8,7 +8,7 @@
  *
  * Default dev.
  *
- * @type {string|string|string}
+ * @module
  */
 const args = require( "argsparser" ).parse();
 

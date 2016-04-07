@@ -6,12 +6,13 @@ const config  = require("../config.js");
 /**
  * Prototype base para todas las Lib que quieran acceder a la base de datos.
  *
- *  Para implementar utilizar
+ * Para implementar utilizar
+ * @example
+ * utils.inherits(MyLib,Lib);
  *
- *  utils.inherits(MyLib,Lib);
- *
+ * @module Lib
  * @returns {*}
- * @constructor
+ *
  */
 function Lib(){
 
@@ -25,8 +26,9 @@ function Lib(){
         //TODO cuando soporte parametros por default, colocar name = "specialdom"
         /**
          * Retorna la db utilizando la lib mongojs.
-         * @param name nombre de la base de datos.
-         * @returns {*}
+         *
+         * @param {string=} name nombre de la base de datos.
+         * @returns {object} mongojs db object
          */
         getDB(name){
             return dbs[ name || "specialdom" ];

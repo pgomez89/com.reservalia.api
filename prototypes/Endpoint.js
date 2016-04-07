@@ -7,10 +7,11 @@
  *
  * Para implementar utilizar
  *
+ * @example
  * utils.inherits(MyEndpoint,Endpoint);
  *
+ * @module Endpoint
  * @returns {*}
- * @constructor
  */
 function Endpoint(){
 
@@ -19,7 +20,7 @@ function Endpoint(){
          *
          * BuildConfig es obligatorio en cada endpoint si se quiere validar los path/query params, y si se quiere agregar a swagger
          *
-         * @param validate
+         * @param {object} validate - Joi schema
          * @returns {{plugins: {hapi-swagger: {responses: {400: {description: string}, 200: {description: string}}, payloadType: string}}, validate: *, tags: string[]}}
          */
         buildConfig(validate){
