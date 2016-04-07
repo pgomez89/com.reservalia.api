@@ -1,33 +1,33 @@
 "use strict";
 
+
 const Joi = require('joi');
 const sales = require("../controllers/salesController.js");
 
 /**
  *
- * Sales contiene los endpoints de /sales
+ * Sales contiene los endpoints de /sales.
  *
  * Cada endpoint tiene como referencia uno o mas controller que continen la lógica para armar los responses.
  *
  * Sales pertenece a la capa routes, cada vez que creo un objeto en la capa routes, tengo que setear quien es
  * su prototipo. Utilizando utils.inherits(MiClase,Prototype). Luego exportar el objeto, en este caso Sales
  *
- * @param server Hapi Server
- * @constructor
+ * @class
+ * @param {object} server Hapi Server
  */
 function Sales(server){
-    var _this = this;
-
 
     /**
      * /sales o /v1/sales
      *
      * Endpoint para resolver todos las ventas(de cualquier hotel) de reservalia.
      *
-     * @param limit required  -  Limite de items por página
-     * @param offset required -  Desvio, 0, 1, 2 -> offset 0 limit 10, es de 0 a 10, offset 1 limit 10, es de 10 a 20...n
-     * @param sort optional   -  Criterios de ordenamiento, +ASC, -DESC -date,+date, -total-price,+total-price
-     * @param filter optional -  Sólo incluye las propiedades que se espcifican en el filter (date,template,logo,domains)
+     * @function
+     * @param {!number} limit required  -  Limite de items por página
+     * @param {!number} offset required -  Desvio, 0, 1, 2 -> offset 0 limit 10, es de 0 a 10, offset 1 limit 10, es de 10 a 20...n
+     * @param {string=} sort optional   -  Criterios de ordenamiento, +ASC, -DESC -date,+date, -total-price,+total-price
+     * @param {string=} filter optional -  Sólo incluye las propiedades que se espcifican en el filter (date,template,logo,domains)
      *
      * @response err
      * @response hotels

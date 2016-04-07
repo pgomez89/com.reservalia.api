@@ -12,8 +12,8 @@ const hotels = require("../controllers/hotelsController.js");
  * Hotels pertenece a la capa routes, cada vez que creo un objeto en la capa routes, tengo que setear quien es
  * su prototipo. Utilizando utils.inherits(MiClase,Prototype). Luego exportar el objeto, en este caso Hotels
  *
+ * @class
  * @param server Hapi Server
- * @constructor
  */
 function Hotels(server){
 
@@ -23,11 +23,12 @@ function Hotels(server){
      *
      * Endpoint para resolver todos los hoteles de reservalia.
      *
-     * @param limit required  -  Limite de items por página
-     * @param offset required -  Desvio, 0, 1, 2 -> offset 0 limit 10, es de 0 a 10, offset 1 limit 10, es de 10 a 20...n
-     * @param sort optional   -  Criterios de ordenamiento, +ASC, -DESC -date,+date, -total-price,+total-price
-     * @param filter optional -  Sólo incluye las propiedades que se espcifican en el filter (date,template,logo,domains)
-     * @param reduce optional -  Devuelve una version reducida del objeto hotel.
+     * @function
+     * @param {!number} limit required  -  Limite de items por página
+     * @param {!number} offset required -  Desvio, 0, 1, 2 -> offset 0 limit 10, es de 0 a 10, offset 1 limit 10, es de 10 a 20...n
+     * @param {string=} sort optional   -  Criterios de ordenamiento, +ASC, -DESC -date,+date, -total-price,+total-price
+     * @param {string=} filter optional -  Sólo incluye las propiedades que se espcifican en el filter (date,template,logo,domains)
+     * @param {boolean=} reduce optional -  Devuelve una version reducida del objeto hotel.
      *
      * @response err
      * @response hotels
@@ -64,11 +65,13 @@ function Hotels(server){
      *
      * Endpoint para resolver un los hotel de reservalia.
      *
+     * @function
+     *
      * @param hotelId Número de hotel a filtrar
      *
-     * @param sort optional   -  Criterios de ordenamiento, +ASC, -DESC -date,+date, -total-price,+total-price
-     * @param filter optional -  Sólo incluye las propiedades que se espcifican en el filter (date,template,logo,domains)
-     * @param reduce optional -  Devuelve una version reducida del objeto hotel.
+     * @param {string=} sort optional   -  Criterios de ordenamiento, +ASC, -DESC -date,+date, -total-price,+total-price
+     * @param {string=} filter optional -  Sólo incluye las propiedades que se espcifican en el filter (date,template,logo,domains)
+     * @param {boolean=} reduce optional - Devuelve una version reducida del objeto hotel.
      *
      * @response err
      * @response hotel
@@ -109,11 +112,12 @@ function Hotels(server){
      *
      * Endpoint para resolver todos los hoteles ONLINE de reservalia.
      *
-     * @param limit required  -  Limite de items por página
-     * @param offset required -  Desvio, 0, 1, 2 -> offset 0 limit 10, es de 0 a 10, offset 1 limit 10, es de 10 a 20...n
-     * @param sort optional   -  Criterios de ordenamiento, +ASC, -DESC -date,+date, -total-price,+total-price
-     * @param filter optional -  Sólo incluye las propiedades que se espcifican en el filter (date,template,logo,domains)
-     * @param reduce optional -  Devuelve una version reducida del objeto hotel.
+     * @function
+     * @param {!number} limit required  -  Limite de items por página
+     * @param {!number} offset required -  Desvio, 0, 1, 2 -> offset 0 limit 10, es de 0 a 10, offset 1 limit 10, es de 10 a 20...n
+     * @param {string=} sort optional   -  Criterios de ordenamiento, +ASC, -DESC -date,+date, -total-price,+total-price
+     * @param {string=} filter optional -  Sólo incluye las propiedades que se espcifican en el filter (date,template,logo,domains)
+     * @param {boolean=} reduce optional -  Devuelve una version reducida del objeto hotel.
      *
      * @response err
      * @response hotels

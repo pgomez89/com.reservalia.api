@@ -6,10 +6,15 @@
  */
 
 /**
+ *
+ *
  * Devuelve una function que convierte los path/query params de API a un objeto para ordenar en mongo.
- * @param map key value de API - Mongo Property
- * @param filters Params del request
- * @returns {*}
+ * @class
+ * @param {Object.<string, string>} map key value de API - Mongo Property
+ * @param {Object.<string, string>} filters Params del request
+ * @returns {Object.<string, number>} object para mongodb filter.
+ *
+
  */
 function Filter(map,filters){
     let dbFilter = {};

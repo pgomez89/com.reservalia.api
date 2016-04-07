@@ -2,9 +2,10 @@
 
 /**
  * Devuelve una función que convierte los path/query params de API a un objeto para ordenar en mongo.
- * @param map key value de API - Mongo Property
- * @param params - Params del request
- * @returns {*}
+ * @class
+ * @param {Object.<string, string>} map key value de API - Mongo Property
+ * @param {Object.<string, string>} params - Params del request
+ * @returns {Object.<string, number>} object para .sort() de mongodb.
  */
 function Sorting(map,params){
     let dbSorting = {};

@@ -11,6 +11,8 @@ const sales = require("../lib/salesDB.js");
  * SalesCtrl pertenece a la capa controllers, cada vez que creo un objeto en la capa controllers, tengo que setear quien es
  * su prototipo. Utilizando utils.inherits(MiClase,Prototype). Luego exportar el objeto, en este caso SalesCtrl
  *
+ * @class
+ *
  * @returns {{getSales: (function(*=, *=)), getSalesByHotelId: (function(*=, *=))}}
  * @constructor
  */
@@ -32,8 +34,11 @@ function SalesCtrl(){
     return {
         /**
          * Retorna todas las ventas de forma paginada teniendo en cuenta los filtros, ordenamientos y parámetros.
-         * @param params
-         * @param cb
+         *
+         * @method
+         * @memberof SalesCtrl
+         * @param {object} params
+         * @param {SalesCtrl~getSalesDB} cb
          */
         getSales(params,cb){
             let filters = _this.getFilter(map,params.filter);
@@ -42,8 +47,10 @@ function SalesCtrl(){
         },
         /**
          * Retorna todas las ventas de un hotel en particular teniendo en cuenta los filtros, ordenamientos y parámetros.
-         * @param params
-         * @param cb
+         * @method
+         * @memberof SalesCtrl
+         * @param {object} params
+         * @param {SalesCtrl~getSalesCBByHotelId} cb
          */
         getSalesByHotelId(params,cb){
             let filters = _this.getFilter(map,params.filter);
@@ -56,3 +63,14 @@ function SalesCtrl(){
 
 SalesCtrl.prototype = require("../prototypes/Controller.js");
 module.exports = new SalesCtrl();
+
+/**
+ * @callback SalesCtrl~getSalesCB
+ * @param {object} err
+ * @param {Array} sales
+ **/
+/**
+ * @callback SalesCtrl~getSalesCBByHotelId
+ * @param {object} err
+ * @param {Array} sales
+ **/

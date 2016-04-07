@@ -9,8 +9,10 @@ const hotels = require("../lib/hotelsDB.js");
  * HotelCtrl pertenece a la capa controllers, cada vez que creo un objeto en la capa controllers, tengo que setear quien es
  * su prototipo. Utilizando utils.inherits(MiClase,Prototype). Luego exportar el objeto, en este caso HotelCtrl
  *
+ *
+ * @class
  * @returns {{getHotels: (function(*=, *)), getHotelById: (function(*=, *)), getHotelsOnline: (function(*=, *))}}
- * @constructor
+ *
  */
 var HotelCtrl = function(){
 
@@ -97,9 +99,11 @@ var HotelCtrl = function(){
          *
          * Retorna todos los hotels teniendo en cuenta los filtros, ordenamiento y parámetros.
          *
+         * @method
+         * @memberof HotelCtrl
          *
-         * @param params
-         * @param cb
+         * @param {object} params
+         * @param {HotelCtrl~getHotels} cb
          */
         getHotels(params,cb){
 
@@ -142,8 +146,11 @@ var HotelCtrl = function(){
          *
          * Retorna un hotel por ID teniendo en cuenta los filtros, ordenamiento y parámetros.
          *
-         * @param params
-         * @param cb
+         * @method
+         * @memberof HotelCtrl
+         *
+         * @param {object} params
+         * @param {HotelCtrl~getHotelById} cb
          */
         getHotelById(params,cb){
 
@@ -171,9 +178,10 @@ var HotelCtrl = function(){
         /**
          *
          * Retorna solo los hoteles online.(online: true) teniendo en cuenta los filtros, ordenamientos y paramétros.
-         *
-         * @param params
-         * @param cb
+         * @method
+         * @memberof HotelCtrl
+         * @param {object} params
+         * @param {HotelCtrl~getHotelsOnline} cb
          */
         getHotelsOnline(params,cb){
             if(typeof params.filter != "undefined"){
@@ -214,3 +222,19 @@ var HotelCtrl = function(){
 
 HotelCtrl.prototype = require("../prototypes/Controller.js");
 module.exports = new HotelCtrl();
+
+/**
+ * @callback HotelCtrl~getHotels
+ * @param {object} err
+ * @param {Array} sales
+ **/
+/**
+ * @callback HotelCtrl~getHotelById
+ * @param {object} err
+ * @param {Array} sales
+ **/
+/**
+ * @callback HotelCtrl~getHotelsOnline
+ * @param {object} err
+ * @param {Array} sales
+ **/
