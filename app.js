@@ -80,6 +80,19 @@ server.register([
     if (err) {
         throw err; // something bad happened loading the plugin
     }
+
+    server.route({
+        method: 'GET',
+        path: '/jsdocs/{param*}',
+        handler: {
+            directory: {
+                path: './public/docs',
+                redirectToSlash: true,
+                index: true
+            }
+        }
+    });
+
     server.start((err) => {
         if (err) {
             throw err;
