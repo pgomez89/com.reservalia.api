@@ -61,7 +61,8 @@ server.register([
         'options':{
             defaultVersion:1,
             validVersions:[1,2],
-            vendorName:'reservalia'
+            vendorName:'reservalia',
+            versionHeader:"x-api-version"
         }
     },
     {
