@@ -14,26 +14,25 @@ const config  = require("../config.js");
  * @returns {*}
  *
  */
-function Lib(){
 
-    //MongoDB Databases
-    var dbs = {
-        specialdom: mongojs(config.dbs["specialdom"].stringconn, config.dbs["specialdom"].collections),
-        checkout: mongojs(config.dbs["checkout"].stringconn, config.dbs["checkout"].collections)
-    };
+//MongoDB Databases
+var dbs = {
+    specialdom: mongojs(config.dbs["specialdom"].stringconn, config.dbs["specialdom"].collections),
+    checkout: mongojs(config.dbs["checkout"].stringconn, config.dbs["checkout"].collections)
+};
 
-    return {
-        //TODO cuando soporte parametros por default, colocar name = "specialdom"
-        /**
-         * Retorna la db utilizando la lib mongojs.
-         *
-         * @param {string=} name nombre de la base de datos.
-         * @returns {object} mongojs db object
-         */
-        getDB(name){
-            return dbs[ name || "specialdom" ];
-        }
+class Lib{
+
+    //TODO cuando soporte parametros por default, colocar name = "specialdom"
+    /**
+     * Retorna la db utilizando la lib mongojs.
+     *
+     * @param {string=} name nombre de la base de datos.
+     * @returns {object} mongojs db object
+     */
+    getDB(name){
+        return dbs[ name || "specialdom" ];
     }
 }
 
-module.exports = new Lib();
+module.exports = Lib;
