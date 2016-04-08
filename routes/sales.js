@@ -26,7 +26,7 @@ function Sales(server){
      * @function
      * @param {!number} limit required  -  Limite de items por página
      * @param {!number} offset required -  Desvio, 0, 1, 2 -> offset 0 limit 10, es de 0 a 10, offset 1 limit 10, es de 10 a 20...n
-     * @param {string=} sort optional   -  Criterios de ordenamiento, +ASC, -DESC -date,+date, -total-price,+total-price
+     * @param {string=} sort optional   -  Criterios de ordenamiento, +ASC, -DESC -date,+date(ordena por el campo lastModified), -total-price,+total-price
      * @param {string=} filter optional -  Sólo incluye las propiedades que se espcifican en el filter (date,template,logo,domains)
      *
      * @response err
@@ -39,8 +39,8 @@ function Sales(server){
             query: {
                 limit: Joi.number().required().min(1).max(100).integer().positive().description('Page Limit between 1 and 100'),
                 offset:Joi.number().required().min(0).max(100).integer().description('Pagination offset. '),
-                sort: Joi.string().description("Sort Options. +ASC -DESC +date -date, +total-price -total-price, +nightly-price -nightly-price"),
-                filter: Joi.string().description("Filter Options: booking_id, date, checkIn, checkOut, hotelName, price_detail. If you don't put anything, by default API retrieves you the reduce version of sale")
+                sort: Joi.string().description("Sort Options. +ASC -DESC +date -date(ordena por el campo lastModified), +total-price -total-price, +nightly-price -nightly-price"),
+                filter: Joi.string().description("Filter Options: booking_id, date(lastModified), checkIn, checkOut, hotelName, price_detail. If you don't put anything, by default API retrieves you the reduce version of sale")
             }
         }),
         handler: function(req, reply){
@@ -69,7 +69,7 @@ function Sales(server){
      *
      * @param limit required  -  Limite de items por página
      * @param offset required -  Desvio, 0, 1, 2 -> offset 0 limit 10, es de 0 a 10, offset 1 limit 10, es de 10 a 20...n
-     * @param sort optional   -  Criterios de ordenamiento, +ASC, -DESC -date,+date, -total-price,+total-price
+     * @param sort optional   -  Criterios de ordenamiento, +ASC, -DESC -date,+date(ordena por el campo lastModified), -total-price,+total-price
      * @param filter optional -  Sólo incluye las propiedades que se espcifican en el filter (date,template,logo,domains)
      *
      * @response err
@@ -85,8 +85,8 @@ function Sales(server){
             query: {
                 limit: Joi.number().min(1).max(100).integer().positive().description('Page Limit between 1 and 100'),
                 offset:Joi.number().min(0).max(100).integer().description('Pagination offset. '),
-                sort: Joi.string().description("Sort Options. +ASC -DESC +date -date, +total-price -total-price, +nightly-price -nightly-price"),
-                filter: Joi.string().description("Filter Options: booking_id, date, checkIn, checkOut, hotelName, price_detail. If you don't put anything, by default API retrieves you the reduce version of sale")
+                sort: Joi.string().description("Sort Options. +ASC -DESC +date -date(ordena por el campo lastModified), +total-price -total-price, +nightly-price -nightly-price"),
+                filter: Joi.string().description("Filter Options: booking_id, date(lastModified), checkIn, checkOut, hotelName, price_detail. If you don't put anything, by default API retrieves you the reduce version of sale")
             }
         }),
         handler: function(req, reply){

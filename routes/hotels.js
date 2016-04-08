@@ -26,7 +26,7 @@ function Hotels(server){
      * @function
      * @param {!number} limit required  -  Limite de items por página
      * @param {!number} offset required -  Desvio, 0, 1, 2 -> offset 0 limit 10, es de 0 a 10, offset 1 limit 10, es de 10 a 20...n
-     * @param {string=} sort optional   -  Criterios de ordenamiento, +ASC, -DESC -date,+date, -total-price,+total-price
+     * @param {string=} sort optional   -  Criterios de ordenamiento, +ASC, -DESC -date,+date (ordena por el campo lastModified), -total-price,+total-price
      * @param {string=} filter optional -  Sólo incluye las propiedades que se espcifican en el filter (date,template,logo,domains)
      * @param {boolean=} reduce optional -  Devuelve una version reducida del objeto hotel.
      *
@@ -40,7 +40,7 @@ function Hotels(server){
             query:{
                 limit: Joi.number().required().min(1).max(100).integer().positive().description('Page Limit between 1 and 100'),
                 offset:Joi.number().required().min(0).max(100).integer().description('Pagination offset. '),
-                sort: Joi.string().description("Sort Options. +ASC -DESC +date -date, +total-price -total-price, +nightly-price -nightly-price"),
+                sort: Joi.string().description("Sort Options. +ASC -DESC +date -date(ordena por el campo lastModified), +total-price -total-price, +nightly-price -nightly-price"),
                 filter: Joi.string().description("Filter Options: name, template, logo, domains, online. If you don't put anything, by default API retrieves you the reduce version of sale"),
                 reduce: Joi.boolean().description("Reduce version of Hotel")
             }
@@ -69,8 +69,8 @@ function Hotels(server){
      *
      * @param hotelId Número de hotel a filtrar
      *
-     * @param {string=} sort optional   -  Criterios de ordenamiento, +ASC, -DESC -date,+date, -total-price,+total-price
-     * @param {string=} filter optional -  Sólo incluye las propiedades que se espcifican en el filter (date,template,logo,domains)
+     * @param {string=} sort optional   -  Criterios de ordenamiento, +ASC, -DESC -date,+date(ordena por el campo lastModified), -total-price,+total-price
+     * @param {string=} filter optional -  Sólo incluye las propiedades que se espcifican en el filter (date(lastModified),template,logo,domains)
      * @param {boolean=} reduce optional - Devuelve una version reducida del objeto hotel.
      *
      * @response err
@@ -115,8 +115,8 @@ function Hotels(server){
      * @function
      * @param {!number} limit required  -  Limite de items por página
      * @param {!number} offset required -  Desvio, 0, 1, 2 -> offset 0 limit 10, es de 0 a 10, offset 1 limit 10, es de 10 a 20...n
-     * @param {string=} sort optional   -  Criterios de ordenamiento, +ASC, -DESC -date,+date, -total-price,+total-price
-     * @param {string=} filter optional -  Sólo incluye las propiedades que se espcifican en el filter (date,template,logo,domains)
+     * @param {string=} sort optional   -  Criterios de ordenamiento, +ASC, -DESC -date,+date(ordena por el campo lastModified), -total-price,+total-price
+     * @param {string=} filter optional -  Sólo incluye las propiedades que se espcifican en el filter (date(lastModified),template,logo,domains)
      * @param {boolean=} reduce optional -  Devuelve una version reducida del objeto hotel.
      *
      * @response err
