@@ -40,7 +40,7 @@ const config = {
         }
     },
     api:{
-        host: os.hostname()+".servers.despegar.it:9290"
+        host: "api.reservalia.it"
     },
     newrelic: newrelic
 };
