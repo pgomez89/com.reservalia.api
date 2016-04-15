@@ -25,7 +25,9 @@ const server = new Hapi.Server();
 
 const args = require("argsparser").parse();
 
-const port = args["-port"] || config.port || 9290;
+// Configs
+const port = args["-port"] || config.port || 9290;  // Config application Port
+const swaggerHost = config.api.host || "localhost:"+port;  // Config Swagger Host (shown in swagger front doc)
 
 server.connection({
     host:"0.0.0.0",
@@ -46,7 +48,7 @@ const options = {
     },
     swaggerUIPath:"/docs/",
     documentationPath:"/",
-    host: config.api.host+":"+port
+    host: swaggerHost
 };
 
 server.register([
@@ -100,5 +102,3 @@ server.register([
         server.log('info', 'Server running at: ' + server.info.uri);
     });
 });
-
-

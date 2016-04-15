@@ -43,8 +43,7 @@ const config = {
             collections:["hotels","config"]
         }
     },
-    api:{
-        host: "localhost"
+    api:{ // Not set api.host
     },
     newrelic:newrelic
 };
