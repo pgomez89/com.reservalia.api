@@ -1,6 +1,6 @@
 "use strict";
 const hotels = require("../lib/hotelsDB.js");
-
+const Errors = require("../lib/errors.js");
 /**
  * HotelCtrl es un controller que maneja la lógica de los objetos de hotels.
  *
@@ -118,7 +118,7 @@ var HotelCtrl = function(){
             hotels.getHotels(params,filters,sort,(err,hotelsRaw) => {
                 if(err){
                     //No entregar data de errores de db al cliente. Solo loguearlas.
-                    return cb(Errors.cannotAccess(),null);
+                    return cb(Errors.cannotAccess,null);
                 }else{
                     //try{
                         if(hotelsRaw && hotelsRaw.length > 0){
@@ -162,15 +162,12 @@ var HotelCtrl = function(){
 
             hotels.getHotelById(params,filters,sort,(err, hotelRaw) => {
                 if(err)
-                    return cb({err:"Cannot access to hotel id"},null);
+                    return cb(Errors.cannotAccess,null);
                 try {
                     return cb(null,buildHotel(hotelRaw));
                 }catch(err){
-                    return cb(err,null);
+                    return cb(Errors.noHotel,null);
                 }
-
-                return cb({err:"No Hotel"},null);
-
             });
         },
 
@@ -193,7 +190,7 @@ var HotelCtrl = function(){
             hotels.getHotelsOnline(params,filters,sort,(err,hotelsRaw) => {
                 if(err){
                     //No entregar data de errores de db al cliente. Solo loguearlas.
-                    return cb({err:"Cannot access to hotel id"},null);
+                    return cb(Errors.cannotAccess,null);
                 }else{
                     //try{
                     if(hotelsRaw && hotelsRaw.length > 0){

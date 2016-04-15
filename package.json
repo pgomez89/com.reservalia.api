@@ -23,6 +23,7 @@
   "dependencies": {
     "argsparser": "0.0.7",
     "authtoken": "*",
+    "boom": "^3.1.2",
     "config": "^1.20.1",
     "debug": "^2.2.0",
     "good": "^6.6.0",

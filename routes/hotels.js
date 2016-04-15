@@ -3,7 +3,8 @@
 const Joi = require('joi');
 const hotels = require("../controllers/hotelsController.js");
 const statusCodes = require("../utils/statusCode.js");
-const Boom = require("boom");
+//const Boom = require("boom");
+const Response = require("../lib/response");
 const debug = require("debug")("routes");
 /**
  *
@@ -18,6 +19,14 @@ const debug = require("debug")("routes");
  * @param server Hapi Server
  */
 function Hotels(server){
+
+    server.route({
+        method:'GET',
+        path:'/badRequest',
+        handler:function(req,reply){
+            reply(Boom.badRequest('un mensaje',{hotel:1}))
+        }
+    })
 
     //Endpoint
     /**
@@ -79,6 +88,8 @@ function Hotels(server){
      * @response err
      * @response hotel
      */
+
+
      
     server.route({
         method: 'GET',
@@ -99,11 +110,7 @@ function Hotels(server){
                 filter:req.query.filter,
                 reduce: req.query.reduce
             };
-            hotels.getHotelById(params,(err,hotel) => {
-                if(err)
-                    return reply(err).header('X-Service','/v1/{hotelId}');
-                return reply(hotel).header('X-Service','/v1/{hotelId}');
-            });
+            hotels.getHotelById(params,(err,hotel) => reply(Response.do(err,hotel)) );
         }
     });
 
