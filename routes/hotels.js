@@ -2,7 +2,9 @@
 
 const Joi = require('joi');
 const hotels = require("../controllers/hotelsController.js");
-
+const statusCodes = require("../utils/statusCode.js");
+const Boom = require("boom");
+const debug = require("debug")("routes");
 /**
  *
  * Hotels contiene los endpoints de /hotels
@@ -44,8 +46,9 @@ function Hotels(server){
                 filter: Joi.string().description("Filter Options: name, template, logo, domains, online. If you don't put anything, by default API retrieves you the reduce version of sale"),
                 reduce: Joi.boolean().description("Reduce version of Hotel")
             }
-        }),
+        },statusCodes['/v1/hotels']),
         handler: function (req, reply) {
+            debug("hotels");
             let params = {
                 limit: typeof req.query.limit != "undefined" ? req.query.limit : 0,
                 offset: typeof req.query.offset != "undefined" ? req.query.offset : 0,
@@ -54,7 +57,7 @@ function Hotels(server){
             };
             hotels.getHotels(params,(err,hotel) => {
                 if(err)
-                    return reply(err).header('X-Service','/v1/hotels');
+                    return reply(Boom.serverTimeout("Unavailable Service",err)).header('X-Service','/v1/hotels');
                 return reply(hotel).header('X-Service','/v1/hotels');
             });
         }
@@ -82,16 +85,14 @@ function Hotels(server){
         path: '/v1/hotels/{hotelId}',
         config: Hotels.prototype.buildConfig({
             params: {
-
                 // Tiene que coincidir el Path Param con el params del objeto Validate.
                 hotelId: Joi.number().required().description('Hotel ID from PAM')
-
             },
             query:{
                 filter: Joi.string().description("Filter Options: TODO put fields here. If you don't put anything, by default API retrieves you the reduce version of sale"),
                 reduce: Joi.boolean().description("Reduce version of Hotel")
             }
-        }),
+        },statusCodes['/v1/hotels/{hotelId}']),
         handler: function (req, reply) {
             let params = {
                 hotelId: req.params.hotelId,
@@ -133,7 +134,7 @@ function Hotels(server){
                 filter: Joi.string().description("Filter Options: name, template_id, template_css, template_path, logo, domains, online. If you don't put anything, by default API retrieves you the reduce version of sale"),
                 reduce: Joi.boolean().description("Reduce version of Hotel")
             }
-        }),
+        },statusCodes['/v1/hotels/online']),
         handler: function (req, reply) {
             let params = {
                 limit: typeof req.query.limit != "undefined" ? req.query.limit : 0,

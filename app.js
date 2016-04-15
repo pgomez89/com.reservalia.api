@@ -18,6 +18,7 @@ const Inert = require('inert');
 const Vision = require('vision');
 const HapiSwagger = require('hapi-swagger');
 const HapiApiVersion = require("hapi-api-version");
+const authtoken = require("authtoken");
 
 const config = require("./config.js");
 
@@ -39,17 +40,19 @@ server.connection({
 
 require("./routes/routes.js")(server);
 
+
 const options = {
     info: {
         'title': 'Reservalia API Documentation',
         'version': "v1.0.0"
     },
     swaggerUIPath:"/docs/",
-    documentationPath:"/",
+    documentationPath:"/docs",
     host: config.api.host+":"+port
 };
 
 server.register([
+    authtoken.hapi,
     Inert,
     Vision,
     {

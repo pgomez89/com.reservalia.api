@@ -117,9 +117,8 @@ var HotelCtrl = function(){
             //TODO Cambiar a promises.
             hotels.getHotels(params,filters,sort,(err,hotelsRaw) => {
                 if(err){
-                    console.log("hotelsController",err);
                     //No entregar data de errores de db al cliente. Solo loguearlas.
-                    return cb({err:"Cannot connect to DB"},null);
+                    return cb(Errors.cannotAccess(),null);
                 }else{
                     //try{
                         if(hotelsRaw && hotelsRaw.length > 0){
@@ -163,14 +162,14 @@ var HotelCtrl = function(){
 
             hotels.getHotelById(params,filters,sort,(err, hotelRaw) => {
                 if(err)
-                    return cb(err,null);
+                    return cb({err:"Cannot access to hotel id"},null);
                 try {
                     return cb(null,buildHotel(hotelRaw));
                 }catch(err){
                     return cb(err,null);
                 }
 
-                return cb({err:"No hotel"},null);
+                return cb({err:"No Hotel"},null);
 
             });
         },
@@ -193,9 +192,8 @@ var HotelCtrl = function(){
 
             hotels.getHotelsOnline(params,filters,sort,(err,hotelsRaw) => {
                 if(err){
-                    console.log("hotelsController",err);
                     //No entregar data de errores de db al cliente. Solo loguearlas.
-                    return cb({err:"Cannot connect to DB"},null);
+                    return cb({err:"Cannot access to hotel id"},null);
                 }else{
                     //try{
                     if(hotelsRaw && hotelsRaw.length > 0){
