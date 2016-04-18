@@ -11,7 +11,7 @@
     "rateLimit": 100,
     "base": "/",
     "excludes": [
-      "/docs","/swagger.json","/docsui","/jsdocs"
+      "/docs","/swagger.json","/docsui","/jsdocs","/swagger","/css","/lib"
     ],
     "forcelogin": false
   }

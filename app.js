@@ -16,7 +16,7 @@ const Hapi = require("hapi");
 const Good = require('good');
 const Inert = require('inert');
 const Vision = require('vision');
-const HapiSwagger = require('hapi-swagger');
+
 const HapiApiVersion = require("hapi-api-version");
 const authtoken = require("authtoken");
 
@@ -56,9 +56,34 @@ server.register([
     Inert,
     Vision,
     {
-        'register': HapiSwagger,
-        'options': options
+        register: require('hapi-swaggered'),
+        options: {
+            cors: true,
+            host: config.api.host+":"+port,
+            info: {
+                title: 'Reservalia API',
+                description: 'Powered by Despegar.com',
+                version: '1.0'
+            }
+        }
     },
+    {
+        register: require('hapi-swaggered-ui'),
+        options: {
+            title: 'Reservalia API',
+            path: '/docs',
+            authorization: {
+                field: 'apikey',
+                scope: 'header', // header works as well
+                placeholder: 'Enter your Api Key here'
+            },
+            swaggerOptions: {
+                validatorUrl: null,
+                docExpansion:"list"
+            }
+        }
+    },
+
     {
         'register': HapiApiVersion,
         'options':{
@@ -90,6 +115,18 @@ server.register([
         handler: {
             directory: {
                 path: './public/docs',
+                redirectToSlash: true,
+                index: true
+            }
+        }
+    });
+
+    server.route({
+        method: 'GET',
+        path: '/{param*}',
+        handler: {
+            directory: {
+                path: './public',
                 redirectToSlash: true,
                 index: true
             }

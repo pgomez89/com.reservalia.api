@@ -3,7 +3,7 @@
 const Joi = require('joi');
 const hotels = require("../controllers/hotelsController.js");
 const statusCodes = require("../utils/statusCode.js");
-//const Boom = require("boom");
+
 const Response = require("../lib/response");
 const debug = require("debug")("routes");
 /**
@@ -19,14 +19,6 @@ const debug = require("debug")("routes");
  * @param server Hapi Server
  */
 function Hotels(server){
-
-    server.route({
-        method:'GET',
-        path:'/badRequest',
-        handler:function(req,reply){
-            reply(Boom.badRequest('un mensaje',{hotel:1}))
-        }
-    })
 
     //Endpoint
     /**
@@ -64,11 +56,7 @@ function Hotels(server){
                 filter: req.query.filter,
                 sort: req.query.sort
             };
-            hotels.getHotels(params,(err,hotel) => {
-                if(err)
-                    return reply(Boom.serverTimeout("Unavailable Service",err)).header('X-Service','/v1/hotels');
-                return reply(hotel).header('X-Service','/v1/hotels');
-            });
+            hotels.getHotels(params,(err,hotel) => Response.do(reply, err, hotel, '/v1/hotels'));
         }
     });
 
@@ -88,9 +76,6 @@ function Hotels(server){
      * @response err
      * @response hotel
      */
-
-
-     
     server.route({
         method: 'GET',
         path: '/v1/hotels/{hotelId}',
@@ -110,7 +95,7 @@ function Hotels(server){
                 filter:req.query.filter,
                 reduce: req.query.reduce
             };
-            hotels.getHotelById(params,(err,hotel) => reply(Response.do(err,hotel)) );
+            hotels.getHotelById( params,(err,hotel) =>  Response.do( reply, err, hotel ,'/v1/hotels/{hotelId}') );
         }
     });
 
@@ -149,11 +134,7 @@ function Hotels(server){
                 filter: req.query.filter,
                 sort: req.query.sort
             };
-            hotels.getHotelsOnline(params,(err,hotel) => {
-                if(err)
-                    return reply(err).header('X-Service','/v1/hotels/online');
-                return reply(hotel).header('X-Service','/v1/hotels/online');
-            });
+            hotels.getHotelsOnline( params,(err,hotels) => Response.do( reply, err, hotels, '/v1/hotels/online') );
         }
     });
 
