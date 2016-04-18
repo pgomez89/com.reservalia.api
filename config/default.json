@@ -1,0 +1,18 @@
+{
+  "default": {
+    "mongodb": "localhost:27017/api",
+    "startupMessage": "AUTH SERVICE NOT READY!, RETURN IN FEW SECONDS!",
+    "redisConnection": "redis://localhost:6379",
+    "collections": [
+      "tokens",
+      "keys"
+    ],
+    "refreshKeys": 10,
+    "rateLimit": 100,
+    "base": "/",
+    "excludes": [
+      "/docs","/swagger.json","/docsui","/jsdocs","/swagger","/css","/lib"
+    ],
+    "forcelogin": false
+  }
+}

@@ -2,7 +2,10 @@
 
 const Joi = require('joi');
 const hotels = require("../controllers/hotelsController.js");
+const statusCodes = require("../utils/statusCode.js");
 
+const Response = require("../lib/response");
+const debug = require("debug")("routes");
 /**
  *
  * Hotels contiene los endpoints de /hotels
@@ -44,19 +47,16 @@ function Hotels(server){
                 filter: Joi.string().description("Filter Options: name, template, logo, domains, online. If you don't put anything, by default API retrieves you the reduce version of sale"),
                 reduce: Joi.boolean().description("Reduce version of Hotel")
             }
-        }),
+        },statusCodes['/v1/hotels']),
         handler: function (req, reply) {
+            debug("hotels");
             let params = {
                 limit: typeof req.query.limit != "undefined" ? req.query.limit : 0,
                 offset: typeof req.query.offset != "undefined" ? req.query.offset : 0,
                 filter: req.query.filter,
                 sort: req.query.sort
             };
-            hotels.getHotels(params,(err,hotel) => {
-                if(err)
-                    return reply(err).header('X-Service','/v1/hotels');
-                return reply(hotel).header('X-Service','/v1/hotels');
-            });
+            hotels.getHotels(params,(err,hotel) => Response.do(reply, err, hotel, '/v1/hotels'));
         }
     });
 
@@ -76,33 +76,26 @@ function Hotels(server){
      * @response err
      * @response hotel
      */
-     
     server.route({
         method: 'GET',
         path: '/v1/hotels/{hotelId}',
         config: Hotels.prototype.buildConfig({
             params: {
-
                 // Tiene que coincidir el Path Param con el params del objeto Validate.
                 hotelId: Joi.number().required().description('Hotel ID from PAM')
-
             },
             query:{
                 filter: Joi.string().description("Filter Options: TODO put fields here. If you don't put anything, by default API retrieves you the reduce version of sale"),
                 reduce: Joi.boolean().description("Reduce version of Hotel")
             }
-        }),
+        },statusCodes['/v1/hotels/{hotelId}']),
         handler: function (req, reply) {
             let params = {
                 hotelId: req.params.hotelId,
                 filter:req.query.filter,
                 reduce: req.query.reduce
             };
-            hotels.getHotelById(params,(err,hotel) => {
-                if(err)
-                    return reply(err).header('X-Service','/v1/{hotelId}');
-                return reply(hotel).header('X-Service','/v1/{hotelId}');
-            });
+            hotels.getHotelById( params,(err,hotel) =>  Response.do( reply, err, hotel ,'/v1/hotels/{hotelId}') );
         }
     });
 
@@ -133,7 +126,7 @@ function Hotels(server){
                 filter: Joi.string().description("Filter Options: name, template_id, template_css, template_path, logo, domains, online. If you don't put anything, by default API retrieves you the reduce version of sale"),
                 reduce: Joi.boolean().description("Reduce version of Hotel")
             }
-        }),
+        },statusCodes['/v1/hotels/online']),
         handler: function (req, reply) {
             let params = {
                 limit: typeof req.query.limit != "undefined" ? req.query.limit : 0,
@@ -141,11 +134,7 @@ function Hotels(server){
                 filter: req.query.filter,
                 sort: req.query.sort
             };
-            hotels.getHotelsOnline(params,(err,hotel) => {
-                if(err)
-                    return reply(err).header('X-Service','/v1/hotels/online');
-                return reply(hotel).header('X-Service','/v1/hotels/online');
-            });
+            hotels.getHotelsOnline( params,(err,hotels) => Response.do( reply, err, hotels, '/v1/hotels/online') );
         }
     });
 

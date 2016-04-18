@@ -1,6 +1,22 @@
 "use strict";
 
-
+const baseResponse = {
+    '400': {
+        'description': "Bad request - A client error (more detail in the 'message' section)"
+    },
+    '403':{
+        'description':"API validation - The request was not authorized (more detail in the 'causes' section)"
+    },
+    '429':{
+        'description':"API validation - Quota exceeded"
+    },
+    '500':{
+        'description':"Internal error - An unexpected error (more detail in the 'causes' section)"
+    },
+    '200':{
+        'description':'OK'
+    }
+};
 /**
  *
  * Prototype base para todos los Endpoints
@@ -13,7 +29,7 @@
  * @module Endpoint
  * @returns {*}
  */
-function Endpoint(){
+module.exports = (function Endpoint(){
 
     return {
         /**
@@ -23,11 +39,11 @@ function Endpoint(){
          * @param {object} validate - Joi schema
          * @returns {{plugins: {hapi-swagger: {responses: {400: {description: string}, 200: {description: string}}, payloadType: string}}, validate: *, tags: string[]}}
          */
-        buildConfig(validate){
+        buildConfig(validate,statusCodes){
             let config = {
                 plugins: {
                     'hapi-swagger': {
-                        responses: {'400': {'description': 'Bad Request'},'200':{'description':'ok'}},
+                        responses: statusCodes || baseResponse,
                         payloadType: 'json'
                     }
                 },
@@ -38,6 +54,6 @@ function Endpoint(){
             return config;
         }
     }
-}
+})();
 
-module.exports = new Endpoint();
+//module.exports = new Endpoint();

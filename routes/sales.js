@@ -3,7 +3,9 @@
 
 const Joi = require('joi');
 const sales = require("../controllers/salesController.js");
-
+const Boom = require("boom");
+const statusCodes = require("../utils/statusCode.js");
+const debug = require("debug")("routes");
 /**
  *
  * Sales contiene los endpoints de /sales.
@@ -42,8 +44,9 @@ function Sales(server){
                 sort: Joi.string().description("Sort Options. +ASC -DESC +date -date(ordena por el campo lastModified), +total-price -total-price, +nightly-price -nightly-price"),
                 filter: Joi.string().description("Filter Options: booking_id, date(lastModified), checkIn, checkOut, hotelName, price_detail. If you don't put anything, by default API retrieves you the reduce version of sale")
             }
-        }),
+        },statusCodes['/v1/sales']),
         handler: function(req, reply){
+            debug("sales init");
             let params = {
                 limit: typeof req.query.limit != "undefined" ? req.query.limit : 0,
                 offset: typeof req.query.offset != "undefined" ? req.query.offset : 0,
@@ -53,12 +56,13 @@ function Sales(server){
 
             sales.getSales(params,(err,sales) => {
                 if(err)
-                    return reply(err).header('X-Service','/v1/sales');
+                    return reply(Boom.badImplementation("HTTP Error 500")).header('X-Service','/v1/sales');
+
+                debug("sales response");
                 return reply(sales).header('X-Service','/v1/sales');
             });
         }
     });
-
 
     /**
      * /sales/{hotelId} o /v1/sales/{hotelId}
@@ -88,7 +92,7 @@ function Sales(server){
                 sort: Joi.string().description("Sort Options. +ASC -DESC +date -date(ordena por el campo lastModified), +total-price -total-price, +nightly-price -nightly-price"),
                 filter: Joi.string().description("Filter Options: booking_id, date(lastModified), checkIn, checkOut, hotelName, price_detail. If you don't put anything, by default API retrieves you the reduce version of sale")
             }
-        }),
+        },statusCodes['/v1/sales/{hotelId}']),
         handler: function(req, reply){
             let params = {
                 hotelId: req.params.hotelId,
@@ -99,11 +103,19 @@ function Sales(server){
             };
             sales.getSalesByHotelId(params,(err,sales) => {
                 if(err)
-                    return reply(err).header('X-Service','/v1/sales/{hotelId}');
+                    return reply(Boom.badImplementation("HTTP Error 500")).header('X-Service','/v1/sales/{hotelId}');
                 return reply(sales).header('X-Service','/v1/sales/{hotelId}');
             });
         }
     });
+
+    server.route({
+        method:"GET",
+        path:"/badrequest",
+        handler:function(req,reply){
+            reply(Boom.badRequest("anda como el oejte"));
+        }
+    })
 }
 
 Sales.prototype = require("../prototypes/Endpoint.js");
