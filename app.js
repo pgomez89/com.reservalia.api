@@ -29,6 +29,7 @@ const args = require("argsparser").parse();
 // Configs
 const port = args["-port"] || config.port || 9290;  // Config application Port
 const swaggerHost = config.api.host || "localhost:"+port;  // Config Swagger Host (shown in swagger front doc)
+const Path = require("path");
 
 server.connection({
     host:"0.0.0.0",
@@ -40,7 +41,7 @@ server.connection({
     }
 });
 
-require("./routes/routes.js")(server);
+
 
 
 const options = {
@@ -111,29 +112,7 @@ server.register([
         throw err; // something bad happened loading the plugin
     }
 
-    server.route({
-        method: 'GET',
-        path: '/jsdocs/{param*}',
-        handler: {
-            directory: {
-                path: './public/docs',
-                redirectToSlash: true,
-                index: true
-            }
-        }
-    });
-
-    server.route({
-        method: 'GET',
-        path: '/{param*}',
-        handler: {
-            directory: {
-                path: './public',
-                redirectToSlash: true,
-                index: true
-            }
-        }
-    });
+    require("./routes/routes.js")(server);
 
     server.start((err) => {
         if (err) {
