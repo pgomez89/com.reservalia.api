@@ -29,7 +29,6 @@ const args = require("argsparser").parse();
 // Configs
 const port = args["-port"] || config.port || 9290;  // Config application Port
 const swaggerHost = config.api.host || "localhost:"+port;  // Config Swagger Host (shown in swagger front doc)
-const Path = require("path");
 
 server.connection({
     host:"0.0.0.0",
@@ -40,19 +39,6 @@ server.connection({
         }
     }
 });
-
-
-
-
-const options = {
-    info: {
-        'title': 'Reservalia API Documentation',
-        'version': "v1.0.0"
-    },
-    swaggerUIPath:"/docs/",
-    documentationPath:"/",
-    host: swaggerHost
-};
 
 server.register([
     authtoken.hapi,
