@@ -77,16 +77,16 @@ var HotelCtrl = function(){
                 }
             }
             //Puede ser que sea online
-            hotel.domains = hotelRaw.general.domains
+            hotel.domains = hotelRaw.general.domains;
         }
 
 
 
-        if(typeof hotelRaw.general.emails != "undefined"){
+        if(typeof hotelRaw.general.emails !== "undefined"){
             hotel.emails = hotelRaw.general.emails;
         }
 
-        if(typeof hotelRaw.general.phones != "undefined"){
+        if(typeof hotelRaw.general.phones !== "undefined"){
             hotel.phones = hotelRaw.general.phones;
         }
         return hotel;
@@ -107,7 +107,7 @@ var HotelCtrl = function(){
          */
         getHotels(params,cb){
 
-            if(typeof params.filter != "undefined"){
+            if(typeof params.filter !== "undefined"){
                 params.filter += ",id,name";//Require Fields -> cambiar no me gusta
             }
 
@@ -153,7 +153,7 @@ var HotelCtrl = function(){
          */
         getHotelById(params,cb){
 
-            if(typeof params.filter != "undefined"){
+            if(typeof params.filter !== "undefined"){
                 params.filter += ",id,name";//Require Fields -> cambiar no me gusta
             }
 
@@ -161,8 +161,9 @@ var HotelCtrl = function(){
             let sort = _this.getSort(mapSorting,params.sort);
 
             hotels.getHotelById(params,filters,sort,(err, hotelRaw) => {
-                if(err)
+                if(err){
                     return cb(Errors.cannotAccess,null);
+                }
                 try {
                     return cb(null,buildHotel(hotelRaw));
                 }catch(err){
@@ -180,7 +181,7 @@ var HotelCtrl = function(){
          * @param {HotelCtrl~getHotelsOnline} cb
          */
         getHotelsOnline(params,cb){
-            if(typeof params.filter != "undefined"){
+            if(typeof params.filter !== "undefined"){
                 params.filter += ",id,name";//Require Fields -> cambiar no me gusta
             }
 
@@ -212,7 +213,7 @@ var HotelCtrl = function(){
 
             });
         }
-    }
+    };
 };
 
 HotelCtrl.prototype = require("../prototypes/Controller.js");

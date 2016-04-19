@@ -51,8 +51,8 @@ function Hotels(server){
         handler: function (req, reply) {
             debug("hotels");
             let params = {
-                limit: typeof req.query.limit != "undefined" ? req.query.limit : 0,
-                offset: typeof req.query.offset != "undefined" ? req.query.offset : 0,
+                limit: typeof req.query.limit !== "undefined" ? req.query.limit : 0,
+                offset: typeof req.query.offset !== "undefined" ? req.query.offset : 0,
                 filter: req.query.filter,
                 sort: req.query.sort
             };
@@ -129,8 +129,8 @@ function Hotels(server){
         },statusCodes['/v1/hotels/online']),
         handler: function (req, reply) {
             let params = {
-                limit: typeof req.query.limit != "undefined" ? req.query.limit : 0,
-                offset: typeof req.query.offset != "undefined" ? req.query.offset : 0,
+                limit: typeof req.query.limit !== "undefined" ? req.query.limit : 0,
+                offset: typeof req.query.offset !== "undefined" ? req.query.offset : 0,
                 filter: req.query.filter,
                 sort: req.query.sort
             };
