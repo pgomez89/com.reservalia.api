@@ -1,7 +1,7 @@
 {
-  "rc": {
+  "production": {
     "mongodb": "reservalia-db-00:27017,reservalia-db-01:27017,reservalia-db-02:27017/api",
-    "startupMessage": "AUTH SERVICE NOT READY!, RETURN IN FEW SECONDS!",
+    "startupMessage": "AUTH SERVICE NOT READY, RETURN IN FEW SECONDS!",
     "redisConnection": "redis://reservalia-db-00:6379",
     "collections": [
       "tokens",
