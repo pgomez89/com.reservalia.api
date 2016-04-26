@@ -14,7 +14,7 @@ const newrelic = {
     /**
      * Your New Relic license key.
      */
-    license_key: '1a1160c5e624c2dcaf6c6a91f4f5dae30d22abee',
+    license_key: 'd80a2063e764519da8d801f4833042faae64b54e',
     logging: {
         /**
          * Level at which to log. 'trace' is most useful to New Relic when diagnosing
