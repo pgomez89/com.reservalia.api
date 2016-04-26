@@ -69,7 +69,7 @@ var HotelCtrl = function(){
                         hotel.logo = url.trim()+"/"+hotelRaw.template.pictures.logoUrl.trim();
                     }
                     if(hotelRaw.template.pictures.fotoHeader){
-                        hotel.header = "http://media.staticontent.com/media/pictures/"+hotelRaw.template.pictures.fotoHeader.trim();
+                        hotel.header = "http://media.staticontent.com/media/pictures/"+hotelRaw.template.pictures.fotoHeader[0].trim();
                     }
                 }
 
