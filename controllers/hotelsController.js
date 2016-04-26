@@ -64,8 +64,13 @@ var HotelCtrl = function(){
                 let url = "http://www."+domain;
                 hotel.url = url.trim();
 
-                if(hotelRaw.template && hotelRaw.template.pictures && hotelRaw.template.pictures.logoUrl){
-                    hotel.logo = url.trim()+"/"+hotelRaw.template.pictures.logoUrl.trim();
+                if(hotelRaw.template && hotelRaw.template.pictures){
+                    if(hotelRaw.template.pictures.logoUrl){
+                        hotel.logo = url.trim()+"/"+hotelRaw.template.pictures.logoUrl.trim();
+                    }
+                    if(hotelRaw.template.pictures.fotoHeader){
+                        hotel.header = "http://media.staticontent.com/media/pictures/"+hotelRaw.template.pictures.fotoHeader.trim();
+                    }
                 }
 
                 if(hotelRaw.template){
