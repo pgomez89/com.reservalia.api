@@ -25,7 +25,7 @@ const newrelic = {
     }
 };
 
-const host = process.env.DB_HOST || "localhost";
+const host = "reservalia-db-00:27017,reservalia-db-01:27017,reservalia-db-02:27017";
 
 const config = {
     dbs:{

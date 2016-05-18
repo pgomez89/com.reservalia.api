@@ -4,4 +4,4 @@ args=("$@")
 port=${args[0]}
 now=$(date +"%Y-%m-%d-%T")
 host=`hostname`
-DB_HOST=reservalia-prod-00:27017,reservalia-prod-01:27017 NODE_ENV="production" forever --uid "${host}" -l "${host}-${now}.log" start app.js
+DEBUG=* NODE_ENV="production" forever --uid "${host}" -l "${host}-${now}.log" start app.js
