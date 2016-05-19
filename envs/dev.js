@@ -40,7 +40,7 @@ const config = {
         }
         ,specialdom: {
             stringconn: "mongodb://"+host+"/specialdom",
-            collections:["hotels","config"]
+            collections:["hotels","config","colors"]
         }
     },
     api:{ // Not set api.host

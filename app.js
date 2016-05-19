@@ -87,8 +87,8 @@ server.register([
         options: {
             reporters: [{
                 reporter: require('good-console'),
-                events: {
-                    log: 'info'
+                events:{
+                    log:"*",request:"*"
                 }
             }]
         }
