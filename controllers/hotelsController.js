@@ -1,6 +1,7 @@
 "use strict";
 const hotels = require("../lib/hotelsDB.js");
 const Errors = require("../lib/errors.js");
+const themes = require("../lib/themesDB.js");
 /**
  * HotelCtrl es un controller que maneja la lógica de los objetos de hotels.
  *
@@ -49,7 +50,10 @@ var HotelCtrl = function(){
      * @param hotelRaw - Objeto tal cual viene de la base de datos.
      * @returns {{id: *, name: (*|string), demoUrl: string}}
      */
-    function buildHotel(hotelRaw){
+    function buildHotel(parts){
+        let { hotelRaw, colors } = parts;
+
+
         //Siempre va a response un hotel con este modelo base.
         let hotel = {
             id: hotelRaw._id,
@@ -79,6 +83,17 @@ var HotelCtrl = function(){
                         name: hotelRaw.template.path,
                         css: hotel.url+hotelRaw.template.css
                     };
+                    if(typeof colors !== "undefined" && colors.length > 0){
+                        colors.some(color => {
+                            if(color.file == hotelRaw.template.css){
+                                hotel.template.colors = color.colors;
+                                hotel.template.headerColor = color.colors[0];
+                                return true;
+                            }
+                            return false;
+                        });
+                    }
+                    console.log(hotel.template);
                 }
             }
             //Puede ser que sea online
@@ -119,32 +134,31 @@ var HotelCtrl = function(){
             let filters = _this.getFilter(mapFilter,params.filter);
             let sort = _this.getSort(mapSorting,params.sort);
 
-            //TODO Cambiar a promises.
-            hotels.getHotels(params,filters,sort,(err,hotelsRaw) => {
-                if(err){
-                    //No entregar data de errores de db al cliente. Solo loguearlas.
-                    return cb(Errors.cannotAccess,null);
-                }else{
-                    //try{
-                        if(hotelsRaw && hotelsRaw.length > 0){
-                            //Transformo cada hotelRaw en un hotel para responder el request.
-                            hotelsRaw = hotelsRaw.map( hotelRaw => {
-                                return buildHotel(hotelRaw);
+            Promise.all([
+                hotels.getHotels(params,filters,sort),
+                themes.getColors()
+            ]).then(
+                function onFullfilled(responses){
+                    let hotelsRaw = responses.shift();
+                    let colors = responses.shift();
+
+                    if(hotelsRaw && hotelsRaw.length > 0){
+                        //Transformo cada hotelRaw en un hotel para responder el request.
+                        hotelsRaw = hotelsRaw.map( hotelRaw => {
+                            return buildHotel({
+                                hotelRaw,
+                                colors
                             });
-                            return cb(null,hotelsRaw);
-                        }else{
-                            return cb(null,{});
-                        }
-                    //}catch(err){
-                    //    console.log(err);
-                    //    return cb({err:"Error to processing request"},null);
-                    //}
+                        });
+                        return cb(null,hotelsRaw);
+                    }else{
+                        return cb(null,{});
+                    }
+                },
+                function onRejected(err){
+                    cb(Errors.cannotAccess,null);
                 }
-
-                //Warning, acá no se llama a ningún callback porque están todas las alternativas cubiertas, si agregan otra
-                //tenganlo en cuenta.
-
-            });
+            );
         },
         /**
          *
