@@ -93,7 +93,6 @@ var HotelCtrl = function(){
                             return false;
                         });
                     }
-                    console.log(hotel.template);
                 }
             }
             //Puede ser que sea online
@@ -179,15 +178,17 @@ var HotelCtrl = function(){
             let filters = _this.getFilter(mapFilter,params.filter);
             let sort = _this.getSort(mapSorting,params.sort);
 
-            hotels.getHotelById(params,filters,sort,(err, hotelRaw) => {
-                if(err){
-                    return cb(Errors.cannotAccess,null);
-                }
-                try {
-                    return cb(null,buildHotel(hotelRaw));
-                }catch(err){
-                    return cb(Errors.noHotel,null);
-                }
+            Promise.all([
+                hotels.getHotelById(params,filters,sort),
+                themes.getColors()
+            ]).then(function onFullFilled(responses){
+                let hotelRaw = responses.shift();
+                let colors = responses.shift();
+                return cb(null,buildHotel({ hotelRaw,colors}));
+
+            }).catch(function onRejected(err){
+                console.log(err);
+                return cb(Errors.noHotel,null);
             });
         },
 
@@ -207,29 +208,25 @@ var HotelCtrl = function(){
             let filters = _this.getFilter(mapFilter,params.filter);
             let sort = _this.getSort(mapSorting,params.sort);
 
-            hotels.getHotelsOnline(params,filters,sort,(err,hotelsRaw) => {
-                if(err){
-                    //No entregar data de errores de db al cliente. Solo loguearlas.
-                    return cb(Errors.cannotAccess,null);
+            Promise.all([
+                hotels.getHotelsOnline(params,filters,sort),
+                themes.getColors()
+            ]).
+            then(function onFullFilled(responses){
+                let hotelsRaw = responses.shift();
+                let colors = responses.shift();
+                if(hotelsRaw && hotelsRaw.length > 0){
+                    hotelsRaw = hotelsRaw.map( hotelRaw => {
+                        return buildHotel({colors,hotelRaw});
+                    });
+                    return cb(null,hotelsRaw);
                 }else{
-                    //try{
-                    if(hotelsRaw && hotelsRaw.length > 0){
-                        hotelsRaw = hotelsRaw.map( hotelRaw => {
-                            return buildHotel(hotelRaw);
-                        });
-                        return cb(null,hotelsRaw);
-                    }else{
-                        return cb(null,{});
-                    }
-                    //}catch(err){
-                    //    console.log(err);
-                    //    return cb({err:"Error to processing request"},null);
-                    //}
+                    return cb(null,{});
                 }
 
-                //Warning, acá no se llama a ningún callback porque están todas las alternativas cubiertas, si agregan otra
-                //tenganlo en cuenta.
-
+            }).catch(function onRejected(err){
+                console.log(err);
+                return cb(Errors.noHotel,null);
             });
         }
     };
