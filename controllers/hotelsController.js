@@ -81,7 +81,7 @@ var HotelCtrl = function(){
                     hotel.template = {
                         id: hotelRaw.template.id,
                         name: hotelRaw.template.path,
-                        css: hotel.url+hotelRaw.template.css
+                        css: hotel.url+"/colors/"+hotelRaw.template.css
                     };
                     if(typeof colors !== "undefined" && colors.length > 0){
                         colors.some(color => {
