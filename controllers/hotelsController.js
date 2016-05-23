@@ -2,6 +2,7 @@
 const hotels = require("../lib/hotelsDB.js");
 const Errors = require("../lib/errors.js");
 const themes = require("../lib/themesDB.js");
+const debug  = require("debug")("api:hotels:ctrl");
 /**
  * HotelCtrl es un controller que maneja la lógica de los objetos de hotels.
  *
@@ -53,62 +54,77 @@ var HotelCtrl = function(){
     function buildHotel(parts){
         let { hotelRaw, colors } = parts;
 
+        try {
+            //debug("parts " + JSON.stringify(parts));
 
-        //Siempre va a response un hotel con este modelo base.
-        let hotel = {
-            id: hotelRaw._id,
-            name:hotelRaw.general.hotel_name || "",
-            demoUrl: "http://"+hotelRaw._id+".reservalia.com"
-        };
+            //Siempre va a response un hotel con este modelo base.
+            let hotel = {
+                id: hotelRaw._id,
+                name: hotelRaw.general.hotel_name || "",
+                demoUrl: "http://" + hotelRaw._id + ".reservalia.com"
+            };
 
-        if(hotelRaw.general && hotelRaw.general.domains && hotelRaw.general.domains.length > 0){
-            let domain =  hotelRaw.general.domains[0].domain;
 
-            if(domain){
-                let url = "http://www."+domain;
-                hotel.url = url.trim();
+            if (hotelRaw.general && hotelRaw.general.domains && hotelRaw.general.domains.length > 0) {
+                let domain = hotelRaw.general.domains[0].domain;
 
-                if(hotelRaw.template && hotelRaw.template.pictures){
-                    if(hotelRaw.template.pictures.logoUrl){
-                        hotel.logo = url.trim()+"/"+hotelRaw.template.pictures.logoUrl.trim();
+                if (domain) {
+                    let url = "http://www." + domain;
+                    hotel.url = url.trim();
+
+                    if (hotelRaw.template && hotelRaw.template.pictures) {
+                        if (hotelRaw.template.pictures.logoUrl) {
+                            hotel.logo = url.trim() + "/" + hotelRaw.template.pictures.logoUrl.trim();
+                        }
+
+                        if (hotelRaw.template.pictures.fotoHeader) {
+                            hotel.header = "http://media.staticontent.com/media/pictures/" + hotelRaw.template.pictures.fotoHeader[0].trim();
+                        }
                     }
-                    if(hotelRaw.template.pictures.fotoHeader){
-                        hotel.header = "http://media.staticontent.com/media/pictures/"+hotelRaw.template.pictures.fotoHeader[0].trim();
+
+                    if (hotelRaw.template) {
+                        hotel.template = {
+                            id: hotelRaw.template.id,
+                            name: hotelRaw.template.path,
+                            css: hotel.url + "/colors/" + hotelRaw.template.css
+                        };
+                        if (typeof colors !== "undefined" && colors.length > 0) {
+                            colors.some(color => {
+                                if (color.file == hotelRaw.template.css) {
+                                    hotel.template.colors = color.colors;
+                                    hotel.template.headerColor = color.colors[0];
+                                    return true;
+                                }
+                                return false;
+                            });
+                        }
                     }
                 }
-
-                if(hotelRaw.template){
-                    hotel.template = {
-                        id: hotelRaw.template.id,
-                        name: hotelRaw.template.path,
-                        css: hotel.url+"/colors/"+hotelRaw.template.css
-                    };
-                    if(typeof colors !== "undefined" && colors.length > 0){
-                        colors.some(color => {
-                            if(color.file == hotelRaw.template.css){
-                                hotel.template.colors = color.colors;
-                                hotel.template.headerColor = color.colors[0];
-                                return true;
-                            }
-                            return false;
-                        });
-                    }
-                }
+                //Puede ser que sea online
+                hotel.domains = hotelRaw.general.domains;
             }
-            //Puede ser que sea online
-            hotel.domains = hotelRaw.general.domains;
+
+
+            if (typeof hotelRaw.general.emails !== "undefined") {
+                hotel.emails = hotelRaw.general.emails;
+            }
+
+            if (typeof hotelRaw.general.phones !== "undefined") {
+                hotel.phones = hotelRaw.general.phones;
+            }
+
+            //debug("Hotel "+hotel.name+"("+hotel.id+")"+ " OK");
+
+            return hotel;
+        }catch(err){
+            debug("Error Hotel: "+hotelRaw.general.hotel_name+" ("+hotelRaw._id+") ");
+            let stack = err.stack.replace(/^[^\(]+?[\n$]/gm, '')
+                .replace(/^\s+at\s+/gm, '')
+                .replace(/^Object.<anonymous>\s*\(/gm, '{anonymous}()@')
+                .split('\n');
+            debug("Error: "+stack);
+
         }
-
-
-
-        if(typeof hotelRaw.general.emails !== "undefined"){
-            hotel.emails = hotelRaw.general.emails;
-        }
-
-        if(typeof hotelRaw.general.phones !== "undefined"){
-            hotel.phones = hotelRaw.general.phones;
-        }
-        return hotel;
     }
 
 
@@ -129,7 +145,7 @@ var HotelCtrl = function(){
             if(typeof params.filter !== "undefined"){
                 params.filter += ",id,name";//Require Fields -> cambiar no me gusta
             }
-
+            debug("getHotels invoked "+JSON.stringify(params));
             let filters = _this.getFilter(mapFilter,params.filter);
             let sort = _this.getSort(mapSorting,params.sort);
 
@@ -138,17 +154,21 @@ var HotelCtrl = function(){
                 themes.getColors()
             ]).then(
                 function onFullfilled(responses){
+
+
                     let hotelsRaw = responses.shift();
                     let colors = responses.shift();
 
                     if(hotelsRaw && hotelsRaw.length > 0){
                         //Transformo cada hotelRaw en un hotel para responder el request.
                         hotelsRaw = hotelsRaw.map( hotelRaw => {
+
                             return buildHotel({
                                 hotelRaw,
                                 colors
                             });
                         });
+                        debug("callback hotelsCtrl");
                         return cb(null,hotelsRaw);
                     }else{
                         return cb(null,{});
