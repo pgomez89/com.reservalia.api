@@ -1,7 +1,4 @@
 #!/usr/bin/env bash
 cd /home/despegar/com.reservalia.api
-args=("$@")
-port=${args[0]}
-now=$(date +"%Y-%m-%d-%T")
-host=`hostname`
-DEBUG=* NODE_ENV="production" forever --uid "${host}" -l "${host}-${now}.log" start app.js
+pm2 delete api
+DEBUG=api* NODE_ENV="production" pm2 --name "api" start app.js
