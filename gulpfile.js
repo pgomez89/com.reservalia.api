@@ -6,7 +6,8 @@ const jsdoc = require('gulp-jsdoc3');
 gulp.task('docs',() => {
    const config = {
        opts:{
-           destination:"./public/jsdocs"
+           destination:"./public/jsdocs",
+           readme:"./README.md"
        }
    };
 
