@@ -1,9 +1,0 @@
-#!/usr/bin/env bash
-killall node
-cd /home/despegar/com.reservalia.api
-args=("$@")
-port=${args[0]}
-now=$(date +"%Y-%m-%d-%T")
-host=`hostname`
-DEBUG=* DB_HOST=reservalia-db-00.servers.despegar.it:27017,reservalia-db.servers.despegar.it-01.servers.despegar.it:27017,reservalia-db-02.servers.despegar.it:27017 NODE_ENV="rc" forever --uid "${host}" -l "${host}-${now}.log" start app.js
-tail -f /home/despegar/.forever/${host}-${now}.log

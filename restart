@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
 cd /home/despegar/com.reservalia.api
-pm2 delete api
-DEBUG=api* NODE_ENV="production" pm2 --name "api" start app.js
+DEBUG=api* node restart.js
+pm2 list
+pm2 logs api
