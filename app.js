@@ -41,6 +41,12 @@ server.connection({
 });
 
 server.register([
+    {
+        register:require("./plugins/redirect"),
+        options:{
+            map:{ "/":"/docs"}
+        }
+    },
     authtoken.hapi,
     Inert,
     Vision,
