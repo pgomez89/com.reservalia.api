@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-	<title>Documentation Class: SalesCtrl</title>
+	<title>Documentation Class: SalesDB</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -40,7 +40,7 @@
 			<li class="dropdown">
 				<a href="classes.list.html" class="dropdown-toggle" data-toggle="dropdown">Classes<b class="caret"></b></a>
 				<ul class="dropdown-menu ">
-					<li><a href="Filter.html">Filter</a></li><li><a href="HotelCtrl.html">HotelCtrl</a></li><li><a href="Hotels.html">Hotels</a></li><li><a href="HotelsDB.html">HotelsDB</a></li><li><a href="Sales.html">Sales</a></li><li><a href="SalesCtrl.html">SalesCtrl</a></li><li><a href="SalesDB.html">SalesDB</a></li><li><a href="Sorting.html">Sorting</a></li>
+					<li><a href="Filter.html">Filter</a></li><li><a href="HotelCtrl.html">HotelCtrl</a></li><li><a href="Hotels.html">Hotels</a></li><li><a href="HotelsDB.html">HotelsDB</a></li><li><a href="Sales.html">Sales</a></li><li><a href="SalesCtrl.html">SalesCtrl</a></li><li><a href="SalesDB.html">SalesDB</a></li><li><a href="Sorting.html">Sorting</a></li><li><a href="Statics.html">Statics</a></li><li><a href="ThemesDB.html">ThemesDB</a></li>
 				</ul>
 			</li>
 			
@@ -77,14 +77,20 @@
 		<div id="main">
 			
 
-	<h1 class="page-title">Class: SalesCtrl</h1>
+	<h1 class="page-title">Class: SalesDB</h1>
 <section>
 
 <header>
     
         <h2>
-        SalesCtrl
+        SalesDB
         </h2>
+        
+            <div class="class-description">SalesDB es una lib que accede a la base de datos que contiene los hotels de reservalia.
+
+SalesDB pertence a la capa lib y como tal debe extender del prototype Lib.
+
+Cada Lib tiene acceso a acceder a cualquier db dentro del sistema.</div>
         
     
 </header>
@@ -96,21 +102,12 @@
         
 <hr>
 <dt>
-    <h4 class="name" id="SalesCtrl"><span class="type-signature"></span>new SalesCtrl()</h4>
+    <h4 class="name" id="SalesDB"><span class="type-signature"></span>new SalesDB()</h4>
     
     
 </dt>
 <dd>
 
-    
-    <div class="description">
-        SalesCtrl es un controller que maneja la lógica de los objetos de hotels.
-
-Cada controller posee libs asociadas que permiten acceder a la base de datos u otros servicios.
-
-SalesCtrl pertenece a la capa controllers, cada vez que creo un objeto en la capa controllers, tengo que setear quien es
-su prototipo. Utilizando utils.inherits(MiClase,Prototype). Luego exportar el objeto, en este caso SalesCtrl
-    </div>
     
 
     
@@ -217,7 +214,7 @@ su prototipo. Utilizando utils.inherits(MiClase,Prototype). Luego exportar el ob
             
 <hr>
 <dt>
-    <h4 class="name" id=".getSales"><span class="type-signature">&lt;static> </span>getSales(params, cb)</h4>
+    <h4 class="name" id="getSales"><span class="type-signature"></span>getSales(params, filters, sorting, cb)</h4>
     
     
 </dt>
@@ -225,7 +222,7 @@ su prototipo. Utilizando utils.inherits(MiClase,Prototype). Luego exportar el ob
 
     
     <div class="description">
-        Retorna todas las ventas de forma paginada teniendo en cuenta los filtros, ordenamientos y parámetros.
+        Retorna todas las ventas teniendo en cuenta los filtros y ordenamiento.
     </div>
     
 
@@ -277,7 +274,55 @@ su prototipo. Utilizando utils.inherits(MiClase,Prototype). Luego exportar el ob
 
             
 
-            <td class="description last"></td>
+            <td class="description last">contiene limit y offset obligatoriamente.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>filters</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Filtros de mongo: {lastModified:1}</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>sorting</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Sorting de mongo: {lastModified:-1}</td>
         </tr>
 
     
@@ -290,7 +335,7 @@ su prototipo. Utilizando utils.inherits(MiClase,Prototype). Luego exportar el ob
             <td class="type">
             
                 
-<span class="param-type">SalesCtrl~getSalesDB</span>
+<span class="param-type"><a href="global.html#libCB">libCB</a></span>
 
 
 
@@ -301,7 +346,7 @@ su prototipo. Utilizando utils.inherits(MiClase,Prototype). Luego exportar el ob
 
             
 
-            <td class="description last"></td>
+            <td class="description last">retorna un array de ventas.</td>
         </tr>
 
     
@@ -369,7 +414,7 @@ su prototipo. Utilizando utils.inherits(MiClase,Prototype). Luego exportar el ob
             
 <hr>
 <dt>
-    <h4 class="name" id=".getSalesByHotelId"><span class="type-signature">&lt;static> </span>getSalesByHotelId(params, cb)</h4>
+    <h4 class="name" id="getSalesByHotelId"><span class="type-signature"></span>getSalesByHotelId(params, filters, sorting, cb)</h4>
     
     
 </dt>
@@ -377,7 +422,7 @@ su prototipo. Utilizando utils.inherits(MiClase,Prototype). Luego exportar el ob
 
     
     <div class="description">
-        Retorna todas las ventas de un hotel en particular teniendo en cuenta los filtros, ordenamientos y parámetros.
+        Retorna todas las ventas de un hotel en particular.
     </div>
     
 
@@ -429,7 +474,55 @@ su prototipo. Utilizando utils.inherits(MiClase,Prototype). Luego exportar el ob
 
             
 
-            <td class="description last"></td>
+            <td class="description last">continene el hotelID,limit y offset obligatoriamente.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>filters</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Filtros de mongo: {lastModified:1}</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>sorting</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Sorting de mongo: {lastModified:-1}</td>
         </tr>
 
     
@@ -442,7 +535,7 @@ su prototipo. Utilizando utils.inherits(MiClase,Prototype). Luego exportar el ob
             <td class="type">
             
                 
-<span class="param-type"><a href="SalesCtrl.html#~getSalesCBByHotelId">SalesCtrl~getSalesCBByHotelId</a></span>
+<span class="param-type"><a href="global.html#libCB">libCB</a></span>
 
 
 
@@ -453,7 +546,7 @@ su prototipo. Utilizando utils.inherits(MiClase,Prototype). Luego exportar el ob
 
             
 
-            <td class="description last"></td>
+            <td class="description last">retorna un array de ventas.</td>
         </tr>
 
     
@@ -521,306 +614,6 @@ su prototipo. Utilizando utils.inherits(MiClase,Prototype). Luego exportar el ob
     
 
     
-        <h3 class="subsection-title">Type Definitions</h3>
-
-        <dl>
-                
-<hr>
-<dt>
-    <h4 class="name" id="~getSalesCB"><span class="type-signature"></span>getSalesCB(err, sales)</h4>
-    
-    
-</dt>
-<dd>
-
-    
-
-    
-
-    
-
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>err</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">object</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>sales</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Array</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dd>
-
-            
-                
-<hr>
-<dt>
-    <h4 class="name" id="~getSalesCBByHotelId"><span class="type-signature"></span>getSalesCBByHotelId(err, sales)</h4>
-    
-    
-</dt>
-<dd>
-
-    
-
-    
-
-    
-
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>err</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">object</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>sales</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Array</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dd>
-
-            </dl>
-    
 
     
 </article>
@@ -865,7 +658,7 @@ su prototipo. Utilizando utils.inherits(MiClase,Prototype). Luego exportar el ob
 <span class="jsdoc-message">
 	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a>
 	
-		on 2016-04-07T12:44:50-03:00
+		on 2016-05-27T16:36:23-03:00
 	
 	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
 </span>

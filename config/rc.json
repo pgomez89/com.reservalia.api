@@ -3,9 +3,18 @@
     "mongodb": "reservalia-db-00.servers.despegar.it:27017,reservalia-db-01.servers.despegar.it:27017,reservalia-db-02.servers.despegar.it:27017/api",
     "startupMessage": "AUTH SERVICE NOT READY!, RETURN IN FEW SECONDS!",
     "redisConnection": [
-        {"host": "reservalia-db-00.servers.despegar.it", "port": 26379},
-        {"host": "reservalia-db-01.servers.despegar.it", "port": 26379},
-        {"host": "reservalia-db-02.servers.despegar.it", "port": 26379}
+      {
+        "host": "reservalia-db-00.servers.despegar.it",
+        "port": 26379
+      },
+      {
+        "host": "reservalia-db-01.servers.despegar.it",
+        "port": 26379
+      },
+      {
+        "host": "reservalia-db-02.servers.despegar.it",
+        "port": 26379
+      }
     ],
     "collections": [
       "tokens",
@@ -15,8 +24,18 @@
     "rateLimit": 100,
     "base": "/",
     "excludes": [
-      "/docs","/swagger.json","/docsui","/jsdocs","/swagger","/css","/lib"
+      "/docs",
+      "/swagger.json",
+      "/docsui",
+      "/jsdocs",
+      "/swagger",
+      "/css",
+      "/lib",
+      "/favicon.ico"
     ],
     "forcelogin": false
+  },
+  "jsdoc": {
+    "enable": true
   }
 }

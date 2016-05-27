@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-	<title>Documentation Module: Controller</title>
+	<title>Documentation Classes</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -40,7 +40,7 @@
 			<li class="dropdown">
 				<a href="classes.list.html" class="dropdown-toggle" data-toggle="dropdown">Classes<b class="caret"></b></a>
 				<ul class="dropdown-menu ">
-					<li><a href="Filter.html">Filter</a></li><li><a href="HotelCtrl.html">HotelCtrl</a></li><li><a href="Hotels.html">Hotels</a></li><li><a href="HotelsDB.html">HotelsDB</a></li><li><a href="Sales.html">Sales</a></li><li><a href="SalesCtrl.html">SalesCtrl</a></li><li><a href="SalesDB.html">SalesDB</a></li><li><a href="Sorting.html">Sorting</a></li>
+					<li><a href="Filter.html">Filter</a></li><li><a href="HotelCtrl.html">HotelCtrl</a></li><li><a href="Hotels.html">Hotels</a></li><li><a href="HotelsDB.html">HotelsDB</a></li><li><a href="Sales.html">Sales</a></li><li><a href="SalesCtrl.html">SalesCtrl</a></li><li><a href="SalesDB.html">SalesDB</a></li><li><a href="Sorting.html">Sorting</a></li><li><a href="Statics.html">Statics</a></li><li><a href="ThemesDB.html">ThemesDB</a></li>
 				</ul>
 			</li>
 			
@@ -77,10 +77,15 @@
 		<div id="main">
 			
 
-	<h1 class="page-title">Module: Controller</h1>
+	<h1 class="page-title">Classes</h1>
 <section>
 
 <header>
+    
+        <h2>
+        
+        </h2>
+        
     
 </header>
 
@@ -89,12 +94,6 @@
     <div class="container-overview">
     
         
-            <div class="description">Prototype base para todos los controllers
-
-Para implementar utilizar
-
-utils.inherits(MyCtrl,Controller);</div>
-        
 
         
 <dl class="details">
@@ -145,485 +144,47 @@ utils.inherits(MyCtrl,Controller);</div>
     
 
     
-
-    
-
-    
-
-    
-        <h3 class="subsection-title">Members</h3>
+        <h3 class="subsection-title">Classes</h3>
 
         <dl>
-            
-<hr>
-<dt class="name" id="~Filter">
-    <h4><span class="type-signature">&lt;inner, constant> </span>Filter<span class="type-signature"></span></h4>
-
-    
-</dt>
-<dd>
-    
-
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-</dd>
-
+            <dt><a href="Filter.html">Filter</a></dt>
+            <dd></dd>
         
-            
-<hr>
-<dt class="name" id="~Sorting">
-    <h4><span class="type-signature">&lt;inner, constant> </span>Sorting<span class="type-signature"></span></h4>
-
-    
-</dt>
-<dd>
-    
-
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-</dd>
-
+            <dt><a href="HotelCtrl.html">HotelCtrl</a></dt>
+            <dd></dd>
+        
+            <dt><a href="Hotels.html">Hotels</a></dt>
+            <dd></dd>
+        
+            <dt><a href="HotelsDB.html">HotelsDB</a></dt>
+            <dd></dd>
+        
+            <dt><a href="Sales.html">Sales</a></dt>
+            <dd></dd>
+        
+            <dt><a href="SalesCtrl.html">SalesCtrl</a></dt>
+            <dd></dd>
+        
+            <dt><a href="SalesDB.html">SalesDB</a></dt>
+            <dd></dd>
+        
+            <dt><a href="Sorting.html">Sorting</a></dt>
+            <dd></dd>
+        
+            <dt><a href="Statics.html">Statics</a></dt>
+            <dd></dd>
+        
+            <dt><a href="ThemesDB.html">ThemesDB</a></dt>
+            <dd></dd>
         </dl>
     
 
     
-        <h3 class="subsection-title">Methods</h3>
-
-        <dl>
-            
-<hr>
-<dt>
-    <h4 class="name" id="~getFilter"><span class="type-signature">&lt;inner> </span>getFilter(map, filters)</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        Convierte los path/query params de API a un objeto para ordenar en mongo.
-    </div>
-    
 
     
 
     
 
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>map</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">object</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">key value de API - Mongo Property</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>filters</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">object</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Params del request</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    key value for mongodb.
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">object</span>
-
-
-
-    </dd>
-</dl>
-
-
-        
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="~getSort"><span class="type-signature">&lt;inner> </span>getSort(map, params)</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        Convierte los path/query params de API a un objeto para ordenar en mongo.
-    </div>
-    
-
-    
-
-    
-
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>map</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">object</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">key value de API - Mongo Property</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>params</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">object</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Params del request</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    key value for mongodb.
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">object</span>
-
-
-
-    </dd>
-</dl>
-
-
-        
-
-    
-</dd>
-
-        </dl>
     
 
     
@@ -671,7 +232,7 @@ utils.inherits(MyCtrl,Controller);</div>
 <span class="jsdoc-message">
 	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a>
 	
-		on 2016-04-07T12:44:50-03:00
+		on 2016-05-27T16:36:23-03:00
 	
 	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
 </span>
