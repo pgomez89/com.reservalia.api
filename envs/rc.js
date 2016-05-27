@@ -26,7 +26,7 @@ const newrelic = {
     }
 };
 
-const host = process.env.DB_HOST || "localhost";
+const host = process.env.DB_HOST || "reservalia-db-00.servers.despegar.it:27017,reservalia-db-01.servers.despegar.it:27017";
 
 const config = {
     dbs:{
