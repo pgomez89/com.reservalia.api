@@ -12,8 +12,8 @@ function Statics(server){
         path: '/jsdocs/{param*}',
         handler: {
             directory: {
-                path: Path.resolve(__dirname,'../public/docs'),
-                redirectToSlash: false,
+                path: Path.resolve(__dirname,'../public/jsdocs'),
+                redirectToSlash: true,//Clave dejar el redirectToSlash
                 index: true
             }
         }
