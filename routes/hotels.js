@@ -28,7 +28,7 @@ function Hotels(server){
      *
      * @function
      * @param {!number} limit required  -  Limite de items por página
-     * @param {!number} offset required -  Desvio, 0, 1, 2 -> offset 0 limit 10, es de 0 a 10, offset 1 limit 10, es de 10 a 20...n
+     * @param {!number} page required -  Desvio, 0, 1, 2 -> page 0 limit 10, es de 0 a 10, page 1 limit 10, es de 10 a 20...n
      * @param {string=} sort optional   -  Criterios de ordenamiento, +ASC, -DESC -date,+date (ordena por el campo lastModified), -total-price,+total-price
      * @param {string=} filter optional -  Sólo incluye las propiedades que se espcifican en el filter (date,template,logo,domains)
      * @param {boolean=} reduce optional -  Devuelve una version reducida del objeto hotel.
@@ -107,7 +107,7 @@ function Hotels(server){
      *
      * @function
      * @param {!number} limit required  -  Limite de items por página
-     * @param {!number} offset required -  Desvio, 0, 1, 2 -> offset 0 limit 10, es de 0 a 10, offset 1 limit 10, es de 10 a 20...n
+     * @param {!number} page required -  Desvio, 0, 1, 2 -> page 0 limit 10, es de 0 a 10, page 1 limit 10, es de 10 a 20...n
      * @param {string=} sort optional   -  Criterios de ordenamiento, +ASC, -DESC -date,+date(ordena por el campo lastModified), -total-price,+total-price
      * @param {string=} filter optional -  Sólo incluye las propiedades que se espcifican en el filter (date(lastModified),template,logo,domains)
      * @param {boolean=} reduce optional -  Devuelve una version reducida del objeto hotel.
@@ -130,7 +130,7 @@ function Hotels(server){
         handler: function (req, reply) {
             let params = {
                 limit: typeof req.query.limit !== "undefined" ? req.query.limit : 0,
-                page: typeof req.query.offset !== "undefined" ? req.query.page : 1,
+                page: typeof req.query.page !== "undefined" ? req.query.page : 1,
                 filter: req.query.filter,
                 sort: req.query.sort
             };
