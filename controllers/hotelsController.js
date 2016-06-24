@@ -155,13 +155,12 @@ var HotelCtrl = function(){
             ]).then(
                 function onFullfilled(responses){
 
-
                     let hotelsRaw = responses.shift();
                     let colors = responses.shift();
 
-                    if(hotelsRaw && hotelsRaw.length > 0){
+                    if(typeof hotelsRaw !== "undefined"){
                         //Transformo cada hotelRaw en un hotel para responder el request.
-                        hotelsRaw = hotelsRaw.map( hotelRaw => {
+                        hotelsRaw.docs = hotelsRaw.docs.map( hotelRaw => {
 
                             return buildHotel({
                                 hotelRaw,
@@ -175,6 +174,7 @@ var HotelCtrl = function(){
                     }
                 },
                 function onRejected(err){
+                    debug(err);
                     cb(Errors.cannotAccess,null);
                 }
             );
@@ -235,8 +235,8 @@ var HotelCtrl = function(){
             then(function onFullFilled(responses){
                 let hotelsRaw = responses.shift();
                 let colors = responses.shift();
-                if(hotelsRaw && hotelsRaw.length > 0){
-                    hotelsRaw = hotelsRaw.map( hotelRaw => {
+                if(typeof hotelsRaw !== "undefined"){
+                    hotelsRaw.docs = hotelsRaw.docs.map( hotelRaw => {
                         return buildHotel({colors,hotelRaw});
                     });
                     return cb(null,hotelsRaw);
