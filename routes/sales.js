@@ -27,7 +27,7 @@ function Sales(server){
      *
      * @function
      * @param {!number} limit required  -  Limite de items por página
-     * @param {!number} offset required -  Desvio, 0, 1, 2 -> offset 0 limit 10, es de 0 a 10, offset 1 limit 10, es de 10 a 20...n
+     * @param {!number} page required -  Desvio, 0, 1, 2 -> page 0 limit 10, es de 0 a 10, page 1 limit 10, es de 10 a 20...n
      * @param {string=} sort optional   -  Criterios de ordenamiento, +ASC, -DESC -date,+date(ordena por el campo lastModified), -total-price,+total-price
      * @param {string=} filter optional -  Sólo incluye las propiedades que se espcifican en el filter (date,template,logo,domains)
      *
@@ -40,7 +40,7 @@ function Sales(server){
         config: Sales.prototype.buildConfig({
             query: {
                 limit: Joi.number().required().min(1).max(100).integer().positive().description('Page Limit between 1 and 100'),
-                offset:Joi.number().required().min(0).max(100).integer().description('Pagination offset. '),
+                page:Joi.number().required().min(1).max(100).integer().description('Pagination page. Min 1'),
                 sort: Joi.string().description("Sort Options. +ASC -DESC +date -date(ordena por el campo lastModified), +total-price -total-price, +nightly-price -nightly-price"),
                 filter: Joi.string().description("Filter Options: booking_id, date(lastModified), checkIn, checkOut, hotelName, price_detail. If you don't put anything, by default API retrieves you the reduce version of sale")
             }
@@ -49,7 +49,7 @@ function Sales(server){
             debug("sales init");
             let params = {
                 limit: typeof req.query.limit != "undefined" ? req.query.limit : 0,
-                offset: typeof req.query.offset != "undefined" ? req.query.offset : 0,
+                page: typeof req.query.page != "undefined" ? req.query.page : 1,
                 filter: req.query.filter,
                 sort: req.query.sort
             };
@@ -72,7 +72,7 @@ function Sales(server){
      * @param hotelId Número de hotel a filtrar
      *
      * @param limit required  -  Limite de items por página
-     * @param offset required -  Desvio, 0, 1, 2 -> offset 0 limit 10, es de 0 a 10, offset 1 limit 10, es de 10 a 20...n
+     * @param page required -  Desvio, 0, 1, 2 -> page 0 limit 10, es de 0 a 10, page 1 limit 10, es de 10 a 20...n
      * @param sort optional   -  Criterios de ordenamiento, +ASC, -DESC -date,+date(ordena por el campo lastModified), -total-price,+total-price
      * @param filter optional -  Sólo incluye las propiedades que se espcifican en el filter (date,template,logo,domains)
      *
@@ -88,7 +88,7 @@ function Sales(server){
             },
             query: {
                 limit: Joi.number().min(1).max(100).integer().positive().description('Page Limit between 1 and 100'),
-                offset:Joi.number().min(0).max(100).integer().description('Pagination offset. '),
+                page:Joi.number().min(1).max(100).integer().description('Pagination page. Min 1'),
                 sort: Joi.string().description("Sort Options. +ASC -DESC +date -date(ordena por el campo lastModified), +total-price -total-price, +nightly-price -nightly-price"),
                 filter: Joi.string().description("Filter Options: booking_id, date(lastModified), checkIn, checkOut, hotelName, price_detail. If you don't put anything, by default API retrieves you the reduce version of sale")
             }
@@ -97,7 +97,7 @@ function Sales(server){
             let params = {
                 hotelId: req.params.hotelId,
                 limit: typeof req.query.limit != "undefined" ? req.query.limit : 0,
-                offset: typeof req.query.offset != "undefined" ? req.query.offset : 0,
+                page: typeof req.query.page != "undefined" ? req.query.page : 1,
                 filter: req.query.filter,
                 sort: req.query.sort
             };
