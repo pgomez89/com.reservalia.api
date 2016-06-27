@@ -40,12 +40,10 @@ function SalesCtrl(){
          * @param {object} params
          * @param {SalesCtrl~getSalesDB} cb
          */
-        getSales(params,cb){
+        getSales(params){
             let filters = _this.getFilter(map,params.filter);
             let sort = _this.getSort(map,params.sort);
-            sales.getSales(params,filters,sort)
-                .then( result => cb(null,result) )
-                .catch(err => cb(Errors.cannotAccess(err),null));
+            return sales.getSales(params,filters,sort);
         },
         /**
          * Retorna todas las ventas de un hotel en particular teniendo en cuenta los filtros, ordenamientos y parámetros.
@@ -57,10 +55,7 @@ function SalesCtrl(){
         getSalesByHotelId(params,cb){
             let filters = _this.getFilter(map,params.filter);
             let sort = _this.getSort(map,params.sort);
-            sales.getSalesByHotelId(params,filters,sort)
-                .then( result => cb(null,result) )
-                .catch(err => cb(Errors.cannotAccess(err),null));
-
+            return sales.getSales(params,filters,sort);
         }
     }
 }

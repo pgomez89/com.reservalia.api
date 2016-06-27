@@ -5,7 +5,8 @@ const Joi = require('joi');
 const sales = require("../controllers/salesController.js");
 const Boom = require("boom");
 const statusCodes = require("../utils/statusCode.js");
-const debug = require("debug")("routes");
+const debug = require("debug")("api:routes:sales");
+
 /**
  *
  * Sales contiene los endpoints de /sales.
@@ -46,21 +47,18 @@ function Sales(server){
             }
         },statusCodes['/v1/sales']),
         handler: function(req, reply){
-            debug("sales init");
+            debug("sales !!!");
+
             let params = {
-                limit: typeof req.query.limit != "undefined" ? req.query.limit : 0,
-                page: typeof req.query.page != "undefined" ? req.query.page : 1,
+                limit: typeof req.query.limit !== "undefined" ? req.query.limit : 0,
+                page: typeof req.query.page !== "undefined" ? req.query.page : 1,
                 filter: req.query.filter,
                 sort: req.query.sort
             };
 
-            sales.getSales(params,(err,sales) => {
-                if(err)
-                    return reply(Boom.badImplementation("HTTP Error 500")).header('X-Service','/v1/sales');
-
-                debug("sales response");
-                return reply(sales).header('X-Service','/v1/sales');
-            });
+            sales.getSales(params)
+                .then( sales => reply(sales).header('X-Service','/v1/sales'))
+                .catch(err => reply(Boom.badImplementation("HTTP Error 500")).header('X-Service','/v1/sales'));
         }
     });
 
@@ -96,26 +94,18 @@ function Sales(server){
         handler: function(req, reply){
             let params = {
                 hotelId: req.params.hotelId,
-                limit: typeof req.query.limit != "undefined" ? req.query.limit : 0,
-                page: typeof req.query.page != "undefined" ? req.query.page : 1,
+                limit: typeof req.query.limit !== "undefined" ? req.query.limit : 0,
+                page: typeof req.query.page !== "undefined" ? req.query.page : 1,
                 filter: req.query.filter,
                 sort: req.query.sort
             };
-            sales.getSalesByHotelId(params,(err,sales) => {
-                if(err)
-                    return reply(Boom.badImplementation("HTTP Error 500")).header('X-Service','/v1/sales/{hotelId}');
-                return reply(sales).header('X-Service','/v1/sales/{hotelId}');
-            });
+
+            sales.getSalesByHotelId(params)
+                .then(sales => reply(sales).header('X-Service','/v1/sales/{hotelId}') )
+                .catch(err =>  reply(Boom.badImplementation("HTTP Error 500")).header('X-Service','/v1/sales/{hotelId}'));
         }
     });
 
-    server.route({
-        method:"GET",
-        path:"/badrequest",
-        handler:function(req,reply){
-            reply(Boom.badRequest("anda como el oejte"));
-        }
-    })
 }
 
 Sales.prototype = require("../prototypes/Endpoint.js");

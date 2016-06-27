@@ -1,6 +1,6 @@
 "use strict";
 
-const debug = require("debug")("api:tests:hotelsDBTest");
+const debug = require("debug")("api:tests:lib:hotelsDBTest");
 
 const hotelsDB = require("../../lib/hotelsDB.js");
 

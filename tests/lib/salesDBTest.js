@@ -1,6 +1,6 @@
 "use strict";
 
-const debug = require("debug")("api:tests:salesDBTest");
+const debug = require("debug")("api:tests:lib:salesDBTest");
 
 const salesDB = require("../../lib/salesDB.js");
 

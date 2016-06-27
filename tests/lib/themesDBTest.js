@@ -1,6 +1,6 @@
 "use strict";
 
-const debug = require("debug")("api:tests:themesDBTest");
+const debug = require("debug")("api:tests:lib:themesDBTest");
 
 const themesDB = require("../../lib/themesDB.js");
 
