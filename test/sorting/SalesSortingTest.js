@@ -3,26 +3,39 @@
 var assert = require('assert');
 
 var sort = require("../../sorting/Sorting");
-describe('SalesSortingTest', function() {
-    it('Deberia retornar un objeto con los filtros solo con los valores -1 y 1 ', function () {
 
-        var sortingParams = "+date,-total_price";
-        assert.deepEqual({date:1,total_price:-1}, sort(sortingParams));
+var map = {
+    booking_id:"booking_id",
+    date: "lastModified",
+    checkIn: "checkIn",
+    checkOut: "checkOut",
+    hotel: "hotelName",
+    price: "price_detail.total",
+    nightly_price:"price_detail.nightly_price",
+};
+
+describe('SalesSortingTest', function() {
+    it('Deberia retornar un objeto con los criterios solo con los valores -1 y 1 ', function () {
+
+        var sortingParams = "+date,-price";
+        var a = sort(map,sortingParams);
+        console.log(a);
+        assert.deepEqual({"lastModified":1,"price_detail.total":-1}, sort(map,sortingParams));
     });
 });
 
 describe('SalesSortingTest', function() {
-    it('Deberia retornar un objeto con un solo filtro =  1 ', function () {
+    it('Deberia retornar un objeto con un solo criterio =  1 ', function () {
 
         var sortingParams = "+date";
-        assert.deepEqual({date:1}, sort(sortingParams));
+        assert.deepEqual({lastModified:1}, sort(map,sortingParams));
     });
 });
 
 describe('SalesSortingTest', function() {
-    it('Deberia retornar un objeto con un solo filtro =  -1 ', function () {
+    it('Deberia retornar un objeto con un solo criterio =  -1 ', function () {
 
-        var sortingParams = "-total_price";
-        assert.deepEqual({total_price:1}, sort(sortingParams));
+        var sortingParams = "-price";
+        assert.deepEqual({"price_detail.total":-1}, sort(map,sortingParams));
     });
 });
