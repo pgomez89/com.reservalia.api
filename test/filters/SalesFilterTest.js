@@ -2,7 +2,7 @@
 
 var assert = require('assert');
 
-var filter = require("../filters/Filter");
+var filter = require("../../filters/Filter");
 
 
 var mapFilter = {

@@ -10,18 +10,10 @@ const CHECKOUT_DB = "checkout";
 
 //MongoDB Databases
 const dbs = {
-    specialdom: mongojs(config.dbs[SPECIALDOM_DB].stringconn, config.dbs[SPECIALDOM_DB].collections),
-    checkout: mongojs(config.dbs[CHECKOUT_DB].stringconn, config.dbs[CHECKOUT_DB].collections)
+    specialdom: { db: mongojs(config.dbs[SPECIALDOM_DB].stringconn, config.dbs[SPECIALDOM_DB].collections),pagination:false },
+    checkout: {   db: mongojs(config.dbs[CHECKOUT_DB].stringconn, config.dbs[CHECKOUT_DB].collections), pagination:false }
 };
 
-var promises = [];
-for(var key in dbs){
-    let db = dbs[ key ];
-    promises.push( paginate(db,{}) );
-}
-Promise.all(promises)
-    .then( () => debug("pagination loaded"),
-           () => debug("ERROR: pagination loaded failed "));
 /**
  * Prototype base para todas las Lib que quieran acceder a la base de datos.
  *
@@ -35,6 +27,17 @@ Promise.all(promises)
  */
 class Lib {
 
+    constructor(){
+        for(var key in dbs){
+            let db = dbs[ key ];
+            if(! db.pagination){
+                debug("Adding Pagination to DB "+key);
+                paginate(db.db,config.dbs[key].collections,{});
+                db.pagination = true;
+            }
+        }
+    }
+
     /**
      * Retorna la db utilizando la lib mongojs.
      *
@@ -42,7 +45,7 @@ class Lib {
      * @returns {object} mongojs db object
      */
     getDB(name){
-        return dbs[ name || "specialdom" ];
+        return dbs[ name || "specialdom" ].db;
     }
 }
 
