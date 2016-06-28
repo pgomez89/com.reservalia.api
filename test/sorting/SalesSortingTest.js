@@ -18,8 +18,6 @@ describe('SalesSortingTest', function() {
     it('Deberia retornar un objeto con los criterios solo con los valores -1 y 1 ', function () {
 
         var sortingParams = "+date,-price";
-        var a = sort(map,sortingParams);
-        console.log(a);
         assert.deepEqual({"lastModified":1,"price_detail.total":-1}, sort(map,sortingParams));
     });
 });
