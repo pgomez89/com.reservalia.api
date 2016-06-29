@@ -54,9 +54,11 @@ var HotelCtrl = function(){
     function buildHotel(parts){
         let { hotelRaw, colors } = parts;
 
-        try {
-            //debug("parts " + JSON.stringify(parts));
+        if(hotelRaw == null || typeof hotelRaw === "undefined"){
+            return null;
+        }
 
+        try {
             //Siempre va a response un hotel con este modelo base.
             let hotel = {
                 id: hotelRaw._id,
@@ -64,8 +66,7 @@ var HotelCtrl = function(){
                 demoUrl: "http://" + hotelRaw._id + ".reservalia.com"
             };
 
-
-            if (hotelRaw.general && hotelRaw.general.domains && hotelRaw.general.domains.length > 0) {
+            if (hotelRaw && hotelRaw.general && hotelRaw.general.domains && hotelRaw.general.domains.length > 0) {
                 let domain = hotelRaw.general.domains[0].domain;
 
                 if (domain) {
@@ -117,13 +118,14 @@ var HotelCtrl = function(){
 
             return hotel;
         }catch(err){
-            debug("Error Hotel: "+hotelRaw.general.hotel_name+" ("+hotelRaw._id+") ");
+            if(hotelRaw && hotelRaw.general){
+                debug("Error Hotel: "+hotelRaw.general.hotel_name+" ("+hotelRaw._id+") ");
+            }
             let stack = err.stack.replace(/^[^\(]+?[\n$]/gm, '')
                 .replace(/^\s+at\s+/gm, '')
                 .replace(/^Object.<anonymous>\s*\(/gm, '{anonymous}()@')
                 .split('\n');
             debug("Error: "+stack);
-
         }
     }
 
@@ -158,7 +160,7 @@ var HotelCtrl = function(){
                     let hotelsRaw = responses.shift();
                     let colors = responses.shift();
 
-                    if(typeof hotelsRaw !== "undefined"){
+                    if(typeof hotelsRaw !== "undefined" && hotelsRaw !== null){
                         //Transformo cada hotelRaw en un hotel para responder el request.
                         hotelsRaw.docs = hotelsRaw.docs.map( hotelRaw => {
 
@@ -170,7 +172,7 @@ var HotelCtrl = function(){
                         debug("callback hotelsCtrl");
                         return cb(null,hotelsRaw);
                     }else{
-                        return cb(null,{});
+                        return cb(Errors.noHotel,null);
                     }
                 },
                 function onRejected(err){
@@ -204,8 +206,11 @@ var HotelCtrl = function(){
             ]).then(function onFullFilled(responses){
                 let hotelRaw = responses.shift();
                 let colors = responses.shift();
-                return cb(null,buildHotel({ hotelRaw,colors}));
-
+                if(typeof hotelsRaw !== "undefined" && hotelsRaw !== null){
+                    return cb(null,buildHotel({ hotelRaw,colors}));
+                }else{
+                    return cb(Errors.noHotel,null);
+                }
             }).catch(function onRejected(err){
                 console.log(err);
                 return cb(Errors.noHotel,null);
@@ -235,13 +240,13 @@ var HotelCtrl = function(){
             then(function onFullFilled(responses){
                 let hotelsRaw = responses.shift();
                 let colors = responses.shift();
-                if(typeof hotelsRaw !== "undefined"){
+                if(typeof hotelsRaw !== "undefined" && hotelsRaw !== null){
                     hotelsRaw.docs = hotelsRaw.docs.map( hotelRaw => {
                         return buildHotel({colors,hotelRaw});
                     });
                     return cb(null,hotelsRaw);
                 }else{
-                    return cb(null,{});
+                    return cb(Errors.noHotel,null);
                 }
 
             }).catch(function onRejected(err){
