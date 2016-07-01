@@ -206,7 +206,7 @@ var HotelCtrl = function(){
             ]).then(function onFullFilled(responses){
                 let hotelRaw = responses.shift();
                 let colors = responses.shift();
-                if(typeof hotelsRaw !== "undefined" && hotelsRaw !== null){
+                if(typeof hotelRaw !== "undefined" && hotelRaw !== null){
                     return cb(null,buildHotel({ hotelRaw,colors}));
                 }else{
                     return cb(Errors.noHotel,null);
