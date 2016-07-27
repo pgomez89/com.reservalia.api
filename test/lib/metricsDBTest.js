@@ -62,14 +62,14 @@ describe("metricsDB", () => {
     });
 
     it("Deberia traer todas las ventas ok de la db con BOOKING_STATUS", (done) => {
-        metricsDB.getSalesOkByBookingStatusError({},function(err,res){
+        metricsDB.getSalesWithBookingStatus({},function(err,res){
             expect(err).to.not.exist;
             return done();
         });
     });
 
     it("Deberia traer todas las ventas ok de la db con BOOKING_STATUS de hoy", (done) => {
-        metricsDB.getSalesOkByBookingStatusError({lastModified:0},function(err,res){
+        metricsDB.getSalesWithBookingStatus({lastModified:0},function(err,res){
             expect(err).to.not.exist;
             return done();
         });
@@ -78,7 +78,6 @@ describe("metricsDB", () => {
     //En el panel anterior no se usa.
     it("Deber traer el total con BOOKING_STATUS", (done) => {
         metricsDB.getTotalForBookingStatus(function(err,res){
-            console.log(err,res);
             expect(err).to.not.exist;
             expect(res[0]).to.have.property('count');
             return done();
