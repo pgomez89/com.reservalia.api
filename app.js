@@ -55,6 +55,10 @@ server.register([
         options: {
             cors: true,
             host: swaggerHost,
+            tagging:{
+                mode:"path",
+                pathLevel:2
+            },
             info: {
                 title: 'Reservalia API',
                 description: 'Powered by Despegar.com',

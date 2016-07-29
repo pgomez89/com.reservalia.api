@@ -51,32 +51,37 @@ function MetricsCtrl(){
 
         getTotalErrors: function(params){
             return new Promise(function(resolve, reject){
-                resolve(3);
+                let filters = _this.getFilter(map, params.filter);
+                metrics.getTotalErrors(filters, (err,data) => err ? reject(err) : resolve(data));
             })
         },
 
         getUnknownErrors: function(params){
             return new Promise(function(resolve, reject){
-                resolve(1);
+                let filters = _this.getFilter(map, params.filter);
+                metrics.getUnknownErrors(filters, (err,data) => err ? reject(err) : resolve(data));
             })
         },
 
         getErrorsWithBookingStatus: function(params){
-            return new Promise(function(resolve,reject){
-                resolve([{"_id":"CREDIT_CARD_ERROR","count":2}]);
-            });
+            return new Promise(function(resolve, reject){
+                let filters = _this.getFilter(map, params.filter);
+                metrics.getErrorsWithBookingStatus(filters, (err,data) => err ? reject(err) : resolve(data));
+            })
         },
 
         getTotalAttemps: function(params){
-            return new Promise(function(resolve,reject){
-                resolve(14);
-            });
+            return new Promise(function(resolve, reject){
+                let filters = _this.getFilter(map, params.filter);
+                metrics.getTotalAttemps(filters, (err,data) => err ? reject(err) : resolve(data));
+            })
         },
 
         getTotalTokens: function(params){
-            return new Promise(function(resolve,reject){
-                resolve(4);
-            });
+            return new Promise(function(resolve, reject){
+                let filters = _this.getFilter(map, params.filter);
+                metrics.getTotalTokens(filters, (err,data) => err ? reject(err) : resolve(data));
+            })
         }
     }
 }

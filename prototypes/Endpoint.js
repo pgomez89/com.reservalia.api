@@ -39,7 +39,7 @@ module.exports = (function Endpoint(){
          * @param {object} validate - Joi schema
          * @returns {{plugins: {hapi-swagger: {responses: {400: {description: string}, 200: {description: string}}, payloadType: string}}, validate: *, tags: string[]}}
          */
-        buildConfig(validate,statusCodes){
+        buildConfig(validate,statusCodes,tags){
             let config = {
                 plugins: {
                     'hapi-swagger': {
@@ -48,7 +48,7 @@ module.exports = (function Endpoint(){
                     }
                 },
                 validate:validate,
-                tags: ['api']
+                tags: tags || ['api']
             };
 
             return config;
