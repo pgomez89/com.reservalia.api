@@ -133,5 +133,4 @@ describe("metrics controller", () => {
             return done();
         });
     });
-
 });
