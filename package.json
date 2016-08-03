@@ -4,7 +4,9 @@
   "description": "Reservalia API",
   "main": "app.js",
   "scripts": {
-    "test": "NODE_ENV=rc mocha --recursive --reporter spec"
+    "test": "NODE_ENV=rc mocha --recursive --reporter spec",
+    "start": "./restart"
+
   },
   "repository": {
     "type": "git",
