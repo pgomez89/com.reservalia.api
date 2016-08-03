@@ -36,9 +36,8 @@ describe("metrics controller", () => {
         });
     });
 
-    it("Debería traer todas las ventas ok de la db", (done) => {
+    it("Debería traer todas las ventas ok de la db", function(done) {
         metricsCtrl.getSalesOK({}).then(function(res){
-            console.log(res);
             res.should.have.property('oneShot');
             res.should.have.property('extraSteps');
             done()
@@ -47,7 +46,7 @@ describe("metrics controller", () => {
         });
     });
 
-    it("Debería traer todas las ventas ok de hoy", (done) => {
+    it("Debería traer todas las ventas ok de hoy", function(done) {
         metricsCtrl.getSalesOK({date:0}).then(function(res){
             res.should.have.property('oneShot');
             res.should.have.property('extraSteps');
@@ -57,41 +56,23 @@ describe("metrics controller", () => {
         });
     });
 
-    //En el panel anterior no se usa.
-    it.skip("Debería traer todas las ventas ok de la db con Extra Steps", (done) => {
-        metricsCtrl.getSalesOkWithError(function (err, res) {
-            expect(err).to.not.exist;
-            expect(res[0]).to.have.property('count');
-            return done();
-        });
-    });
-
-    it.skip("Debería traer todas las ventas ok de la db con BOOKING_STATUS", (done) => {
+    it("Debería traer todas las ventas ok de la db con BOOKING_STATUS", (done) => {
         metricsCtrl.getSalesWithBookingStatus({}, function (err, res) {
             expect(err).to.not.exist;
             return done();
         });
     });
 
-    it.skip("Debería traer todas las ventas ok de la db con BOOKING_STATUS de hoy", (done) => {
+    it("Debería traer todas las ventas ok de la db con BOOKING_STATUS de hoy", (done) => {
         metricsCtrl.getSalesWithBookingStatus({lastModified: 0}, function (err, res) {
             expect(err).to.not.exist;
             return done();
         });
     });
 
-    //En el panel anterior no se usa.
-    it.skip("Debería traer el total con BOOKING_STATUS", (done) => {
-        metricsCtrl.getTotalForBookingStatus(function (err, res) {
-            expect(err).to.not.exist;
-            expect(res[0]).to.have.property('count');
-            return done();
-        });
-    });
-
     //Errors
 
-    it.skip("Debería traer los errores con BOOKING_STATUS de toda la db", (done) => {
+    it("Debería traer los errores con BOOKING_STATUS de toda la db", (done) => {
         metricsCtrl.getErrorsWithBookingStatus({}, function (err, res) {
             expect(err).to.not.exist;
             expect(res[0]).to.have.all.keys(['_id', 'count']);
@@ -99,14 +80,14 @@ describe("metrics controller", () => {
         });
     });
 
-    it.skip("Debería traer los errores con BOOKING_STATUS de hoy", (done) => {
+    it("Debería traer los errores con BOOKING_STATUS de hoy", (done) => {
         metricsCtrl.getErrorsWithBookingStatus({lastModified: 0}, function (err, res) {
             expect(err).to.not.exist;
             return done();
         });
     });
 
-    it.skip("Debería traer la cantidad de ventas fallidas con BOOKING_STATUS de toda las db", (done) => {
+    it("Debería traer la cantidad de ventas fallidas con BOOKING_STATUS de toda las db", (done) => {
         metricsCtrl.getTotalErrors({}, function (err, res) {
             expect(err).to.not.exist;
             expect(res[0]).to.have.property('count');
@@ -115,7 +96,7 @@ describe("metrics controller", () => {
     });
 
     //En el panel anterior no se usa.
-    it.skip("Debería traer la cantidad de ventas fallidas con BOOKING_STATUS de hoy", (done) => {
+    it("Debería traer la cantidad de ventas fallidas con BOOKING_STATUS de hoy", (done) => {
         metricsCtrl.getTotalErrors({lastModified: 0}, function (err, res) {
             expect(err).to.not.exist;
             return done();
@@ -123,7 +104,7 @@ describe("metrics controller", () => {
     });
 
 
-    it.skip("Debería traer la cantidad de ventas fallidas sin BOOKING_STATUS de toda la db", (done) => {
+    it("Debería traer la cantidad de ventas fallidas sin BOOKING_STATUS de toda la db", (done) => {
         metricsCtrl.getUnknownErrors({}, function (err, res) {
             expect(err).to.not.exist;
             expect(res[0]).to.have.property('count');
@@ -131,14 +112,14 @@ describe("metrics controller", () => {
         });
     });
 
-    it.skip("Debería traer la cantidad de ventas fallidas sin BOOKING_STATUS de hoy", (done) => {
+    it("Debería traer la cantidad de ventas fallidas sin BOOKING_STATUS de hoy", (done) => {
         metricsCtrl.getUnknownErrors({lastModified: 0}, function (err, res) {
             expect(err).to.not.exist;
             return done();
         });
     });
 
-    it.skip("Debería traer los tokens expirados de toda la db", (done) => {
+    it("Debería traer los tokens expirados de toda la db", (done) => {
         metricsCtrl.getTotalTokens({}, function (err, res) {
             expect(err).to.not.exist;
             expect(res[0]).to.have.property('count');
@@ -146,24 +127,8 @@ describe("metrics controller", () => {
         });
     });
 
-    it.skip("Debería traer los tokens expirados de hoy", (done) => {
+    it("Debería traer los tokens expirados de hoy", (done) => {
         metricsCtrl.getTotalTokens({lastModified: 0}, function (err, res) {
-            expect(err).to.not.exist;
-            return done();
-        });
-    });
-
-    //En el panel anterior no se usa.
-    it.skip("Debería traer la cantidad de errores por booking_id de toda la db", (done) => {
-        metricsCtrl.getTotalErrorsByCheckout({}, function (err, res) {
-            expect(err).to.not.exist;
-            expect(res[0]).to.have.property('count');
-            return done();
-        });
-    });
-
-    it.skip("Debería traer la cantidad de errores por booking_id de hoy", (done) => {
-        metricsCtrl.getTotalErrorsByCheckout({lastModified: 0}, function (err, res) {
             expect(err).to.not.exist;
             return done();
         });
