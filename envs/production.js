@@ -25,7 +25,7 @@ const newrelic = {
     }
 };
 
-const host = "bigote:bigote@ds145295.mlab.com:45295/";
+const host = "bigote:bigote@ds145295.mlab.com:45295";
 
 const config = {
     dbs:{
