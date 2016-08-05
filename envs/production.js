@@ -25,7 +25,7 @@ const newrelic = {
     }
 };
 
-const host = "reservalia-db-00:27017,reservalia-db-01:27017,reservalia-db-02:27017";
+const host = "bigote:bigote@ds145295.mlab.com:45295/heroku_94wh3cp2";
 
 const config = {
     dbs:{
