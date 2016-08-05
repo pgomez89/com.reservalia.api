@@ -1,0 +1,8 @@
+machine:
+  node:
+    version: 6.3.1
+deployment:
+  staging:
+    branch: master
+    heroku:
+      appname: com-reservalia-api
