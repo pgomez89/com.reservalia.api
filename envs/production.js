@@ -25,16 +25,16 @@ const newrelic = {
     }
 };
 
-const host = "bigote:bigote@ds145295.mlab.com:45295/heroku_94wh3cp2";
+const host = "bigote:bigote@ds145295.mlab.com:45295/";
 
 const config = {
     dbs:{
         checkout: {
-            stringconn: "mongodb://"+host+"/checkout",
+            stringconn: "mongodb://"+host+"/heroku_94wh3cp2",
             collections:["sales","checkoutLogs"]
         }
         ,specialdom: {
-            stringconn: "mongodb://"+host+"/specialdom",
+            stringconn: "mongodb://"+host+"/heroku_94wh3cp2",
             collections:["hotels","config","colors"]
         }
     },

@@ -4,7 +4,8 @@
   "description": "Reservalia API",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha --recursive",
+    "start": "node app.js"
   },
   "repository": {
     "type": "git",
@@ -41,7 +42,9 @@
     "vision": "^4.0.1"
   },
   "devDependencies": {
+    "chai": "^3.5.0",
     "gulp": "^3.9.1",
-    "gulp-jsdoc3": "0.2.1"
+    "gulp-jsdoc3": "0.2.1",
+    "mocha": "^3.0.1"
   }
 }

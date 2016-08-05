@@ -5,8 +5,8 @@ const config  = require("../config.js");
 const paginate = require("../lib/paginate");
 const debug = require("debug")("api:prototypes:Lib");
 
-const SPECIALDOM_DB = "heroku_94wh3cp2";
-const CHECKOUT_DB = "heroku_94wh3cp2";
+const SPECIALDOM_DB = "specialdom";
+const CHECKOUT_DB = "checkout";
 
 //MongoDB Databases
 const dbs = {
